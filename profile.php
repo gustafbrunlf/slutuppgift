@@ -179,7 +179,7 @@
 
 							} else {
 
-								print '<h1 class="emptyresult">Write your first post!</h1>';
+								print '<h1 class="emptyresult">Write your first post here!</h1>';
 
 							}
 
