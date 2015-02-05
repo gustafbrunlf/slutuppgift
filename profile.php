@@ -39,7 +39,7 @@
     <title>What's cooking?</title>
     <link rel="stylesheet" href="css/main.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!--<script src="js/script.js"></script>-->
+    <script src="js/script.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 
   </head>
@@ -114,7 +114,8 @@
 					<div class="postform">
 						<form enctype="multipart/form-data" action="profile.php" method="POST">
 
-							<textarea type="text" name="message" class="inputarea"></textarea><br>
+							<textarea name="message" id="textarea" class="inputarea" oninput="counter()"></textarea><br>
+							<div id="count">200</div>
 							<input class="inputupload" type="file" name="upload">
 							<button type="submit" class="inputbutton">post somethin'</button>
 
@@ -166,7 +167,7 @@
 
 											}
 
-											print " " .Sanitize($value["dateofpost"]). '</div>';
+											print 	" " .Sanitize($value["dateofpost"]). '</div>';
 											print 	'<div class="comment">' .find_hashtags($post). '</div>';
 
 										}

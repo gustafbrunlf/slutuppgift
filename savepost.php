@@ -16,38 +16,46 @@
 
 			$message = $_POST["message"];
 
-			if(!$_FILES["upload"]["error"] == 4) {
-				
-				if ($_FILES["upload"]["error"] == 0) {
+			if (strlen($message) < 200) {
 
-					$file  = $_FILES["upload"]["tmp_name"];
-					$size  = $_FILES["upload"]["size"];
+				if(!$_FILES["upload"]["error"] == 4) {
+					
+					if ($_FILES["upload"]["error"] == 0) {
 
-					$data = getimagesize($file);
+						$file  = $_FILES["upload"]["tmp_name"];
+						$size  = $_FILES["upload"]["size"];
 
-					if ($data) {
+						$data = getimagesize($file);
 
-						$name = substr(md5(rand()), 0, 7);
+						if ($data) {
 
-						$path = "post/".$name.".jpg";
-						
-						move_uploaded_file($file, $path);
+							$name = substr(md5(rand()), 0, 7);
 
-						createPostWithPic($message, $userid, $username, $path);
+							$path = "post/".$name.".jpg";
+							
+							move_uploaded_file($file, $path);
 
-					} else {
+							createPostWithPic($message, $userid, $username, $path);
 
-						$_SESSION["error"] = "Only images are allowed";
+						} else {
+
+							$_SESSION["error"] = "Only images are allowed";
+
+						}
 
 					}
 
-				}
+				} else {
 
-			} else {
+					createPost($message, $userid, $username);
 
-				createPost($message, $userid, $username);
+		 		}
 
-	 		}
+		 	} else {
+
+		 		$_SESSION["error"] = "200 characters is the maximum";
+
+		 	}
 
 		} 
 
@@ -55,8 +63,16 @@
 
 			$comment = $_POST["comment"];
 			$id = $_POST["id"];
+
+			if (strlen($comment) < 200) {
 			
-	 		createComment($comment, $userid, $username, $id);
+	 			createComment($comment, $userid, $username, $id);
+
+	 		} else {
+
+	 			$_SESSION["error"] = "200 characters is the maximum";
+
+	 		}
 
 		} 
 

@@ -82,7 +82,24 @@
 
 							foreach ($hashtagresult as $value) {
 
-								print Sanitize($value["username"]). "<br>" .Sanitize($value["message"]). "<br>";
+								$message = Sanitize($value["message"]);
+								$searchusername = Sanitize($value["username"]);
+								$usernameat = ltrim ($searchusername, '@');
+								$userpath = getUserpath($usernameat);
+
+								if ($username == $usernameat) {
+
+									print find_at_tag_profile($searchusername). "<br>" .$message. "<br>";
+
+								} else {
+
+									foreach ($userpath as $path) {
+														
+										print find_at_tag_viewuser($searchusername, $path["userpath"]). "<br>" .$message. "<br>";
+ 
+									}
+
+								}
 
 							}
 

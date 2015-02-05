@@ -60,7 +60,9 @@
 
 			<div class="inputwrapper">
 
-				<div class="profile profilefollow">
+				<div class="profilebox">
+
+					<div class="profile profilefollow">
 
 					<?php 
 
@@ -84,6 +86,8 @@
 					?>
 
 					<span class="error"><?= $error; ?></span>
+
+					</div>
 
 				</div>
 
