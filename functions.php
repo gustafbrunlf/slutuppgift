@@ -507,7 +507,14 @@
 
 	}
 
-	function find_at_tag_user ($username, $userpath) {
+	function find_at_tag_profile($username) {
+
+		return preg_replace('/(?<=^|\s)@([a-z0-9_]+)/i', '<a href="profile.php">@$1</a>', $username);
+
+
+	}
+
+	function find_at_tag_viewuser ($username, $userpath) {
 
 		return preg_replace('/(?<=^|\s)@([a-z0-9_]+)/i', '<a href="viewuser.php?username=' .$userpath. '">@$1</a>', $username);
 

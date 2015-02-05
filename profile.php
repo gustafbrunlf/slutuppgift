@@ -129,9 +129,10 @@
 								foreach ($guestbook as $value) {
 
 									$post = Sanitize($value["message"]);
+									$username = Sanitize($value["username"]);
 								
 									print	'<div id="toggle">';	
-									print 	'<div class="postinfo">' .Sanitize($value["username"]). ' ' .Sanitize($value["dateofpost"]). '</div>'; 
+									print 	'<div class="postinfo">' .find_at_tag_profile($username). ' ' .Sanitize($value["dateofpost"]). '</div>'; 
 									print 	'<div class="usermessage">' .find_hashtags($post). '</div>';
 									if($value["picpath"]){
 									print   '<div class="postpic"><img src="' .$value["picpath"]. '"></div>';
@@ -161,7 +162,7 @@
 
 											foreach ($userpath as $path) {
 													
-												print find_at_tag_user($username, $path["userpath"]);
+												print find_at_tag_viewuser($username, $path["userpath"]);
 
 											}
 
