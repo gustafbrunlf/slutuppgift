@@ -47,34 +47,41 @@
  	
 	<body>
 
-		<div id="container">
+		<div class="container">
 			
-			<header class=".col-md-12">
+			<div class="row">
+				<header class="col-md-12">
+					
+					<div class="col-md-4">	
+						<div class="col-md-6">
+							<h5 class="logout"><a href="logout.php">Log out</a></h5>
+						</div>
+						<div class="col-md-6">
+							<h5 class="update"><a href="editprofile.php">Edit profile</a></h5>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<h1><a href="profile.php">What's cooking?</a></h1>
+					</div>
+					<div class="col-md-2 tja">
+						<form class="search" action="searchresult.php?search=" method="GET">
+
+							<input type="text" name="search" id="searchinput">
+							<button type="submit" id="searchbutton">search</button>
+
+						</form>
+					</div>
+
+				</header>
+			</div>
+	
+			<div class="row">
 				
-				<div class=".col-med-4">	
-					<h3 class="logout"><a href="logout.php">Log out</a></h3>
-					<h3 class="update"><a href="editprofile.php">Edit profile</a></h3>
-				</div>
-				<div class=".col-med-4">
-					<h1><a href="profile.php">What's cooking?</a></h1>
-				</div>
-				<div class=".col-med-4">
-					<form class="search" action="searchresult.php?search=" method="GET">
+				<div class="col-md-12">
 
-						<input type="text" name="search" id="searchinput">
-						<button type="submit" id="searchbutton">search</button>
-
-					</form>
-				</div>
-
-			</header>
-
-			<div class="inputwrapper">
-				
-				<div class="profilebox">
-
-					<div class="profile">
-
+					<div class="col-md-6">
+						
+						<div class="col-md-12">
 						<?php 
 
 							foreach ($getpic as $value) {
@@ -94,17 +101,19 @@
 							print '<h1 class="userinfo">' .$username. '</h1>'; 
 
 						?>
+
+						</div>
 						
-						<table class="userstatistics">
+						<table class="col-md-6">
 							<tr>
-								<th>Messages:</th>
-								<th>Following:</th>
-								<th>Followers:</th>
+								<th class="col-md-4">Messages:</th>
+								<th class="col-md-4">Following:</th>
+								<th class="col-md-4">Followers:</th>
 							</tr>
 							<tr>
-								<td><?= count($guestbook); ?></td>
-								<td><a href="following.php"><?= count($following); ?></a></td>
-								<td><a href="following.php"><?= count($followers); ?></a></td>
+								<td class="col-md-4"><?= count($guestbook); ?></td>
+								<td class="col-md-4"><a href="following.php"><?= count($following); ?></a></td>
+								<td class="col-md-4"><a href="following.php"><?= count($followers); ?></a></td>
 							</tr>
 						</table>
 
@@ -112,9 +121,7 @@
 
 					<span class="error"><?= $error; ?></span>
 
-				</div>
-
-				<div class="inputfield">
+				<div class="col-md-6">
 					
 					<div class="postform">
 						<form enctype="multipart/form-data" action="profile.php" method="POST">
@@ -193,6 +200,8 @@
 					</div>
 
 				</div>
+
+			</div>
 
 		</div>
 
