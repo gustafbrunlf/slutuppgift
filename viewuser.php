@@ -14,6 +14,7 @@
 	require_once("searchfield.php");
 
 	$userinfo = $_GET["username"];
+	$profilename = $_SESSION["userdata"]["username"];
 
 	$data = viewProfile($userinfo);
 
@@ -128,9 +129,20 @@
 									foreach ($guestbookpost as $value) {
 
 										$post = Sanitize($value["message"]);
-										
+										$username = Sanitize($value["username"]);
+										$userpath = ltrim ($username, '@');
+										$userpath = getUserpath($userpath);
+
 										print	'<div id="toggle">';
-										print 	'<div class="postinfo">' .Sanitize($value["username"]). " " .Sanitize($value["dateofpost"]). '</div>'; 
+										print 	'<div class="postinfo">';
+								
+											foreach ($userpath as $path) {
+													
+												print find_at_tag_viewuser($username, $path["userpath"]);
+
+											}
+										
+										print 	" " .Sanitize($value["dateofpost"]). '</div>'; 
 										print 	'<div class="usermessage">' .find_hashtags($post). '</div>';
 										if($value["picpath"]){
 										print   '<div class="postpic"><img src="' .$value["picpath"]. '"></div>';
@@ -152,9 +164,28 @@
 											foreach ($getcomments as $value) {
 
 												$post = Sanitize($value["message"]);
+												$username = Sanitize($value["username"]);
+												$usernameat = ltrim ($username, '@');
+												$userpath = getUserpath($usernameat);
+
+											print 	'<div class="commentinfo">';
+
+											if ($usernameat == $profilename) {
+
+												print find_at_tag_profile($username);
+
+											} else {
+
+												foreach ($userpath as $path) {
+														
+													print find_at_tag_viewuser($username, $path["userpath"]);
+
+												}
+
+											}
 												
-												print 	'<div class="commentinfo">' .Sanitize($value["username"]). " " .Sanitize($value["dateofpost"]). '</div>';
-												print 	'<div class="comment">' .find_hashtags($post). '</div>';
+											print 	" " .Sanitize($value["dateofpost"]). '</div>';
+											print 	'<div class="comment">' .find_hashtags($post). '</div>';
 
 											}
 
