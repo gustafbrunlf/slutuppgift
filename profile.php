@@ -37,7 +37,8 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>What's cooking?</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!--<script src="js/script.js"></script>-->
     <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
@@ -48,19 +49,23 @@
 
 		<div id="container">
 			
-			<header>
+			<header class=".col-md-12">
 				
-				<h3 class="logout"><a href="logout.php">Log out</a></h3>
-				<h3 class="update"><a href="editprofile.php">Edit profile</a></h3>
-				
-				<h1><a href="profile.php">What's cooking?</a></h1>
+				<div class=".col-med-4">	
+					<h3 class="logout"><a href="logout.php">Log out</a></h3>
+					<h3 class="update"><a href="editprofile.php">Edit profile</a></h3>
+				</div>
+				<div class=".col-med-4">
+					<h1><a href="profile.php">What's cooking?</a></h1>
+				</div>
+				<div class=".col-med-4">
+					<form class="search" action="searchresult.php?search=" method="GET">
 
-				<form class="search" action="searchresult.php?search=" method="GET">
+						<input type="text" name="search" id="searchinput">
+						<button type="submit" id="searchbutton">search</button>
 
-					<input type="text" name="search" id="searchinput">
-					<button type="submit" id="searchbutton">search</button>
-
-				</form>
+					</form>
+				</div>
 
 			</header>
 

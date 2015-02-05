@@ -37,11 +37,11 @@
 
 		<div class="wrapper">
 		
-			<div class="formwrapper">
+			<div class="kojk">
 
 				<h1>Log in to <span>What's cooking?</span> or:<br>
 				<a href="register.php">Register here</a></h1>
-				
+	
 				<form action="checklogin.php" method="POST">
 					
 					<input type="text" placeholder="Username" name="username">
