@@ -66,6 +66,8 @@
 
 		$db = connectToDB();
 
+		$username = Sanitize($username); //GÖR SÅ HÄR PÅ ALLA SELECT-SATSER!
+
 		$query = "SELECT id, username FROM `users` WHERE `username` = '$username'";
 
 		$result = mysqli_query($db, $query);
@@ -479,7 +481,7 @@
 
 	function find_hashtags($tweet) {
 	
-		return preg_replace("/(#(\w+))/", '<a href="searchresult.php?search=%23$2">$1</a>' , $tweet);
+		return preg_replace("/(#([\wåäöÅÄÖ]+))/", '<a href="searchresult.php?search=%23$2">$1</a>' , $tweet);
 
 	}	
 

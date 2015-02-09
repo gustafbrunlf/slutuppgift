@@ -101,7 +101,7 @@
 
 							foreach ($following as $value) {
 							
-							print '<a href="viewuser.php?username=' .Sanitize($value["userpath"]). '">' .Sanitize($value["username"]). ' <img class="searchpic" src="' .Sanitize($value["picpath"]). '"></a><br>';
+							print '<a href="viewuser.php?username=' .$value["userpath"]. '">' .$value["username"]). ' <img class="searchpic" src="' .$value["picpath"]. '"></a><br>';
 							
 							}
 
@@ -123,7 +123,7 @@
 
 							foreach ($followers as $value) {
 							
-								print '<a href="viewuser.php?username=' .Sanitize($value["userpath"]). '">' .Sanitize($value["username"]). ' <img class="searchpic" src="' .Sanitize($value["picpath"]). '"></a><br>';
+								print '<a href="viewuser.php?username=' .$value["userpath"]. '">' .$value["username"]. ' <img class="searchpic" src="' .$value["picpath"]. '"></a><br>';
 							} 
 
 						} else {

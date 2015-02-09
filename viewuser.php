@@ -79,7 +79,7 @@
 
 								if ($value['picpath']) {
 
-									print '<img class="profilepic" src="' .Sanitize($value["picpath"]). '">';
+									print '<img class="profilepic" src="' .$value["picpath"]. '">';
 
 								} else {
 
@@ -128,8 +128,8 @@
 									
 									foreach ($guestbookpost as $value) {
 
-										$post = Sanitize($value["message"]);
-										$username = Sanitize($value["username"]);
+										$post = $value["message"];
+										$username = $value["username"];
 										$userpath = ltrim ($username, '@');
 										$userpath = getUserpath($userpath);
 
@@ -142,11 +142,11 @@
 
 											}
 										
-										print 	" " .Sanitize($value["dateofpost"]). '</div>'; 
+										print 	" " .$value["dateofpost"]. '</div>'; 
 										print 	'<div class="usermessage">' .find_hashtags($post). '</div>';
-										if($value["picpath"]){
+												if($value["picpath"]){
 										print   '<div class="postpic"><img src="' .$value["picpath"]. '"></div>';
-										}
+												}
 										print	'</div>'; 
 										print 	'<form action="savecommentview.php" method="POST">';
 										print	'<div class="toggle">';
@@ -163,8 +163,8 @@
 
 											foreach ($getcomments as $value) {
 
-												$post = Sanitize($value["message"]);
-												$username = Sanitize($value["username"]);
+												$post = $value["message"];
+												$username = $value["username"];
 												$usernameat = ltrim ($username, '@');
 												$userpath = getUserpath($usernameat);
 
@@ -184,7 +184,7 @@
 
 											}
 												
-											print 	" " .Sanitize($value["dateofpost"]). '</div>';
+											print 	" " .$value["dateofpost"]. '</div>';
 											print 	'<div class="comment">' .find_hashtags($post). '</div>';
 
 											}
