@@ -39,7 +39,6 @@
     <link rel="stylesheet" href="css/main.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="js/script.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 
   </head>
  	
@@ -56,7 +55,7 @@
 
 				<form class="search" action="searchresult.php?search=" method="GET">
 
-					<input type="text" name="search" id="searchinput">
+					<input type="text" name="search" id="searchinput" placeholder="Search for a # or a username">
 					<button type="submit" id="searchbutton">search</button>
 
 				</form>

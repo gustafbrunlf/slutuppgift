@@ -36,7 +36,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>What's cooking?</title>
     <link rel="stylesheet" href="css/main.css">
-    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
   </head>
  	
 	<body>
@@ -52,7 +51,7 @@
 
 				<form class="search" action="searchresult.php?search=" method="GET">
 
-					<input type="text" name="search" id="searchinput">
+					<input type="text" name="search" id="searchinput" placeholder="Search for a # or a username">
 					<button type="submit" id="searchbutton">search</button>
 
 				</form>
