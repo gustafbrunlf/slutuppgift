@@ -4,15 +4,15 @@
 
 	if (!isset($_SESSION["userdata"])) {
 
-		$_SESSION["error"] = "You're not logged in";
+		$_SESSION["error"] = "You need to log in";
 		header("Location: login.php");
 		die;
 
 	}
 
-	require_once("functions.php");
-	require_once("uploadpic.php");
-	require_once("searchfield.php");
+	require_once("server/data.php");
+	require_once("server/uploadpic.php");
+	require_once("server/searchfield.php");
 
 
 	$userid   = $_SESSION["userdata"]["id"];
@@ -66,19 +66,15 @@
 
 				<div class="editprofile">
 
-					<?php 
+					<?php foreach ($getpic as $value) : ?>
 
-						foreach ($getpic as $value) {
+					<img class="profilepic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>">
 
-							print '<img class="profilepic" src="' .Sanitize($value["picpath"]). '">';
+					<?php endforeach ?>
 
-						}
+					<h1 class="userinfo"><?= $username; ?></h1>
 
-						print '<h1 class="userinfo">' .$username. '</h1>';
-
-					?>
-
-					<form enctype="multipart/form-data" action="editprofile.php" method="POST">
+					<form enctype="multipart/form-data" action="" method="POST">
 
 						<input class="inputupload" type="file" name="upload">
 						<input class="uploadbutton" type="submit" value="Upload">

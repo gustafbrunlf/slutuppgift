@@ -2,7 +2,7 @@
 
 	session_start();
 
-	require_once("registeruser.php");
+	require_once("server/registeruser.php");
 
 	$error = "";
 
@@ -34,7 +34,7 @@
 
 				<h1>Register: </h1>
 				
-				<form action="register.php" method="POST" name="registrationform">
+				<form action="" method="POST" name="registrationform">
 				
 					<input type="text" id="email" placeholder="E-mail" name="email" value="<?php if(isset($_POST['email'])){ print $_POST['email']; } ?>">
 					<input type="text" id="username" placeholder="Username" name="username" value="<?php if(isset($_POST['username'])){ print $_POST['username']; } ?>">

@@ -8,3 +8,4 @@ $name = session_name();
 setcookie($name, "", 1);
 
 header("Location: login.php");
+die;

@@ -4,14 +4,14 @@
 
 	if (!isset($_SESSION["userdata"])) {
 
-		$_SESSION["error"] = "You're not logged in";
+		$_SESSION["error"] = "You need to log in";
 		header("Location: login.php");
 		die;
 
 	}
-
-	require_once("functions.php");
-	require_once("searchfield.php");
+	
+	require_once("server/data.php");
+	require_once("server/searchfield.php");
 
 	$userid   = $_SESSION["userdata"]["id"];
 	$username = $_SESSION["userdata"]["username"];
@@ -68,46 +68,49 @@
 
 					<?php 
 
-						if ($userresult) {
+						if ($userresult) :
 
-							foreach ($userresult as $value) {
+							foreach ($userresult as $value) : ?>
 
-								print '<a href="viewuser.php?username=' .Sanitize($value["userpath"]). '">' .Sanitize($value["username"]). ' <img class="searchpic" src="' .Sanitize($value["picpath"]). '"></a><br>';
+							<a href="viewuser.php?username=<?= $value["userpath"]; ?>"><?= $value["username"]; ?><img class="searchpic" src="img/profile/
+								<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>"></a><br>
 
-							}
+					<?php 	
 
-						}
+							endforeach;
 
-						if ($hashtagresult) {
+						endif; 
 
-							foreach ($hashtagresult as $value) {
+						if ($hashtagresult) :
 
-								$message = Sanitize($value["message"]);
-								$searchusername = Sanitize($value["username"]);
+							foreach ($hashtagresult as $value) :
+
+								$message = $value["message"];
+								$searchusername = $value["username"];
 								$usernameat = ltrim ($searchusername, '@');
 								$userpath = getUserpath($usernameat);
 
-								if ($username == $usernameat) {
+								if ($username == $usernameat) : ?>
 
-									print find_at_tag_profile($searchusername). "<br>" .$message. "<br>";
+									<p> <?= find_at_tag_profile($searchusername); ?><br> <?= $message; ?><br>
 
-								} else {
+								<?php 
 
-									foreach ($userpath as $path) {
+								else :
+
+									foreach ($userpath as $path) : ?>
 														
-										print find_at_tag_viewuser($searchusername, $path["userpath"]). "<br>" .$message. "<br>";
+										<p><?= find_at_tag_viewuser($searchusername, $path["userpath"]); ?><br><?= $message; ?><br>
  
-									}
+								<?php	endforeach;
 
-								}
+								endif;
 
-							}
+							endforeach;
 
-						}
+						endif; ?>
 
-						print $searcherror;
-
-					?> 
+						<?= $searcherror; ?>
 
 					</p>
 

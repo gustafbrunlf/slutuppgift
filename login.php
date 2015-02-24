@@ -7,6 +7,7 @@
 	if (isset($_SESSION["userdata"])) {
 
 	    header("Location: profile.php");
+	    die;
 
 	}
 
@@ -41,7 +42,7 @@
 				<h1>Log in to <span>What's cooking?</span> or:<br>
 				<a href="register.php">Register here</a></h1>
 				
-				<form action="checklogin.php" method="POST">
+				<form action="server/checklogin.php" method="POST">
 					
 					<input type="text" placeholder="Username" name="username">
 					<input type="password" placeholder="Password" name="password">

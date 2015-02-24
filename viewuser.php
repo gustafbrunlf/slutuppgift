@@ -4,14 +4,14 @@
 
 	if (!isset($_SESSION["userdata"])) {
 
-		$_SESSION["error"] = "You're not logged in";
+		$_SESSION["error"] = "You need to log in";
 		header("Location: login.php");
 		die;
 
 	}
 
-	require_once("functions.php");
-	require_once("searchfield.php");
+	require_once("server/data.php");
+	require_once("server/searchfield.php");
 
 	$userinfo = $_GET["username"];
 	$profilename = $_SESSION["userdata"]["username"];
@@ -73,25 +73,13 @@
 
 					<div class="profile">
 
-						<?php 
+					<?php foreach ($picpath as $value): ?>
 
-							foreach ($picpath as $value) {
+					<img class="profilepic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>">
 
-								if ($value['picpath']) {
+					<?php endforeach; $userinfo = array_pop($data); ?>
 
-									print '<img class="profilepic" src="' .$value["picpath"]. '">';
-
-								} else {
-
-									print '<img class="profilepic" src="profile/standard.jpg">';
-
-								}
-							}
-							
-							$userinfo = array_pop($data); //Kolla upp denna!
-							print '<h1 class="userinfo">' .$userinfo["username"]. '</h1>';
-
-						?>
+					<h1 class="userinfo"><?= $userinfo["username"]; ?></h1> 
 
 						<table class="userstatistics">
 							<tr>
@@ -106,10 +94,9 @@
 							</tr>
 						</table>
 						
-						<form method="POST" action="savefollow.php">
+						<form method="POST" action="server/savefollow.php">
 							<input type="hidden" name="userid" value="<?= $userinfo["id"]; ?>">
 							<button class="followbutton"><?php if (checkFollower($_SESSION['userdata']['id'], $userinfo["id"])) { print 'Unfollow'; } else { print 'Follow'; } ?></button>
-
 						</form>
 
 						</div>
@@ -127,81 +114,60 @@
 								if ($guestbookpost) {
 									
 									foreach ($guestbookpost as $value) {
-
 										$post = $value["message"];
 										$username = $value["username"];
 										$userpath = ltrim ($username, '@');
 										$userpath = getUserpath($userpath);
-
 										print	'<div id="toggle">';
 										print 	'<div class="postinfo">';
 								
 											foreach ($userpath as $path) {
 													
-												print find_at_tag_viewuser($username, $path["userpath"]);
+												print find_at_tag_viewuser($username, $path["userpath"]). " " .$value["dateofpost"];
 
 											}
 										
-										print 	" " .$value["dateofpost"]. '</div>'; 
+										print 	'</div>'; 
 										print 	'<div class="usermessage">' .find_hashtags($post). '</div>';
 												if($value["picpath"]){
-										print   '<div class="postpic"><img src="' .$value["picpath"]. '"></div>';
+										print   '<div class="postpic"><img src="img/post/' .$value["picpath"]. '"></div>';
 												}
-										print	'</div>'; 
-										print 	'<form action="savecommentview.php" method="POST">';
-										print	'<div class="toggle">';
-										print   '<div class="commentfield">
+										print	'</div> 
+												<div class="toggle">
+												<div class="commentfield">
+												<form action="server/savecommentview.php" method="POST">
 												<input type="text" name="comment" class="commentinput">
 												<input type="hidden" name="id" value="' .$value["id"]. '">
 												<button type="submit" class="commentbutton">comment</button>
-
 												</form></div>';
-
+												
 										$getcomments = getComments($value["id"]);
-
 										if ($getcomments) {
-
 											foreach ($getcomments as $value) {
-
 												$post = $value["message"];
 												$username = $value["username"];
 												$usernameat = ltrim ($username, '@');
 												$userpath = getUserpath($usernameat);
-
 											print 	'<div class="commentinfo">';
-
 											if ($usernameat == $profilename) {
-
 												print find_at_tag_profile($username);
-
 											} else {
-
 												foreach ($userpath as $path) {
 														
-													print find_at_tag_viewuser($username, $path["userpath"]);
-
+													print find_at_tag_viewuser($username, $path["userpath"]). " " .$value["dateofpost"];
 												}
-
 											}
 												
-											print 	" " .$value["dateofpost"]. '</div>';
+											print 	'</div>';
 											print 	'<div class="comment">' .find_hashtags($post). '</div>';
-
 											}
-
 										}
-
 										print "<hr>";
 										print "</div>";
-
 									}
-
 								} else {
-
 									print '<h1 class="emptyresult">' .$userinfo["username"]. ' hasn\'t written any posts so far!</h1>';
-
 								}
-
 							?>
 
 						</div>

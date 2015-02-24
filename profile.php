@@ -4,16 +4,15 @@
 
 	if (!isset($_SESSION["userdata"])) {
 
-		$_SESSION["error"] = "You're not logged in";
+		$_SESSION["error"] = "You need to log in";
 		header("Location: login.php");
 		die;
 
 	}
 
-	require_once("functions.php");
-	require_once("savepost.php");
-	require_once("searchfield.php");
-	#require_once("savecomment.php");
+	require_once("server/data.php");
+	require_once("server/savepost.php");
+	require_once("server/searchfield.php");
 
 	$userid   = $_SESSION["userdata"]["id"];
 	$username = $_SESSION["userdata"]["username"];
@@ -70,25 +69,13 @@
 
 					<div class="profile">
 
-						<?php 
+						<?php foreach ($getpic as $value): ?>
 
-							foreach ($getpic as $value) {
+						<img class="profilepic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>">
 
-								if(!$value["picpath"]){
+						<?php endforeach ?>
 
-									print '<img class="profilepic" src="profile/standard.jpg">';
-
-								} else {
-
-									print '<img class="profilepic" src="' .$value["picpath"]. '">';
-
-								}
-
-							}
-
-							print '<h1 class="userinfo">' .$username. '</h1>'; 
-
-						?>
+						<h1 class="userinfo"><?= $username ?></h1> 
 						
 						<table class="userstatistics">
 							<tr>
@@ -112,9 +99,9 @@
 				<div class="inputfield">
 					
 					<div class="postform">
-						<form enctype="multipart/form-data" action="profile.php" method="POST">
+						<form enctype="multipart/form-data" action="" method="POST">
 
-							<textarea name="message" id="textarea" class="inputarea" oninput="counter()"></textarea><br>
+							<textarea name="message" id="textarea" class="inputarea" maxlength="200"></textarea><br>
 							<div id="count">200</div>
 							<input class="inputupload" type="file" name="upload">
 							<button type="submit" class="inputbutton">post somethin'</button>
@@ -123,65 +110,54 @@
 					</div>
 					
 					<div class="result">
+						
 						<?php 
 
 							if ($guestbook) {
 								
 								foreach ($guestbook as $value) {
-
 									$post = $value["message"];
 									$username = $value["username"];
 								
-									print	'<div id="toggle">';	
-									print 	'<div class="postinfo">' .find_at_tag_profile($username). ' ' .$value["dateofpost"]. '</div>'; 
-									print 	'<div class="usermessage">' .find_hashtags($post). '</div>';
+									print	'<div id="toggle">	
+											<div class="postinfo">' .find_at_tag_profile($username). ' ' .$value["dateofpost"]. '</div> 
+											<div class="usermessage">' .find_hashtags($post). '</div>';
 											if($value["picpath"]){
-									print   '<div class="postpic"><img src="' .$value["picpath"]. '"></div>';
+									print   '<div class="postpic"><img src="img/post/' .$value["picpath"]. '"></div>';
 											}
-									print	'</div>'; 
-									print 	'<form action="profile.php" method="POST">';
-									print	'<div class="toggle">';
-									print   '<div class="commentfield">
+									print	'</div>
+											<div class="toggle">
+											<div class="commentfield">
+											<form action="" method="POST">
 											<input type="text" name="comment" class="commentinput">
 											<input type="hidden" name="id" value="' .$value["id"]. '">
 											<button type="submit" class="commentbutton">comment</button>
-
 											</form></div>';
 
 									$getcomments = getComments($value["id"]);
-
 									if ($getcomments) {
-
 										foreach ($getcomments as $value) {
 											
 											$post = $value["message"];
 											$username = $value["username"];
 											$userpath = ltrim ($username, '@');
 											$userpath = getUserpath($userpath);
-
 											print 	'<div class="commentinfo">';
-
 											foreach ($userpath as $path) {
 													
-												print find_at_tag_viewuser($username, $path["userpath"]);
-
+												print find_at_tag_viewuser($username, $path["userpath"]). " " .$value["dateofpost"];
 											}
-
-											print 	" " .$value["dateofpost"]. '</div>';
-											print 	'<div class="comment">' .find_hashtags($post). '</div>';
-
+											print 	'</div>
+													<div class="comment">' .find_hashtags($post). '</div>';
 										}
-
 									}
-
 									print "<hr>";
 									print "</div>";
-
 								}
 
 							} else {
 
-								print '<h1 class="emptyresult">Write your first post here!</h1>';
+								print '<h1 class="emptyresult">Write your first post!</h1>';
 
 							}
 
