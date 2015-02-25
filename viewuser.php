@@ -1,16 +1,16 @@
 <?php 
-	
-	session_start();
 
-	if (!isset($_SESSION["userdata"])) {
+	require_once("server/data.php");
 
+	$session = checkSession();
+
+	if (!$session) {
 		$_SESSION["error"] = "You need to log in";
 		header("Location: login.php");
 		die;
 
 	}
-
-	require_once("server/data.php");
+	
 	require_once("server/searchfield.php");
 
 	$userinfo = $_GET["username"];
@@ -18,14 +18,11 @@
 
 	$data = viewProfile($userinfo);
 
-	foreach ($data as $value) {
-		
-		$guestbookpost = getPosts($value["id"]);
-		$picpath       = getPicPath($value["id"]);
-		$following     = followingUsers($value["id"]);
-		$followers     = getFollowers($value["id"]);
-
-	}
+	$guestbookpost = getPosts($data[0]["id"]);
+	$picpath       = getPicPath($data[0]["id"]);
+	$following     = followingUsers($data[0]["id"]);
+	$followers     = getFollowers($data[0]["id"]);
+	$usertext 	   = getUserInfo($data[0]["id"]);
 
 	if (isset($_SESSION["error"])) {
 
@@ -52,8 +49,12 @@
 			
 			<header>
 
-				<h3 class="logout"><a href="logout.php">Log out</a></h3>
-				<h3 class="update"><a href="profile.php">Home</a></h3>
+				<nav>
+					<ul id="menu">
+						<li class="logout"><a href="logout.php">Log out</a></li>
+						<li class="update"><a href="profile.php">Home</a></li>
+					</ul>
+				</nav>
 
 				<h1><a href="profile.php">What's cooking?</a></h1>
 
@@ -66,7 +67,11 @@
 
 			</header>
 
-			<div class="inputwrapper">
+			<section>
+
+				<article>
+
+					<div class="center">
 
 				<div class="profilebox">
 
@@ -79,6 +84,11 @@
 					<?php endforeach; $userinfo = array_pop($data); ?>
 
 					<h1 class="userinfo"><?= $userinfo["username"]; ?></h1> 
+
+					<div>
+						<h2>About: </h2>
+						<p><?php if(isset($usertext)){ foreach ($usertext as $value) { if($value["userinfo"]) { print $value["userinfo"]; } else { print "No info"; } } } ?></p>
+					</div>
 
 						<table class="userstatistics">
 							<tr>
@@ -95,7 +105,7 @@
 						
 						<form method="POST" action="server/savefollow.php">
 							<input type="hidden" name="userid" value="<?= $userinfo["id"]; ?>">
-							<button class="followbutton"><?php if (checkFollower($_SESSION['userdata']['id'], $userinfo["id"])) { print 'Unfollow'; } else { print 'Follow'; } ?></button>
+							<button class="followbutton"><?php if (checkFollower($_SESSION['userdata']['id'], $userinfo["id"])) { print 'Unfollo<span>w</span>'; } else { print 'Follo<span>w</span>'; } ?></button>
 						</form>
 
 						</div>
@@ -104,9 +114,9 @@
 
 					</div>
 					
-					<div class="viewuserpost">
+					<div class="inputfield">
 						
-						<div class="viewresults">
+						<div class="result">
 							
 							<?php
 
@@ -117,17 +127,18 @@
 										$username = $value["username"];
 										$userpath = ltrim ($username, '@');
 										$userpath = getUserpath($userpath);
-										print	'<div id="toggle">';
-										print 	'<div class="postinfo">';
+										print  '<div class="wrapper">
+												<div id="toggle">
+											 	<div class="postinfo">';
 								
 											foreach ($userpath as $path) {
 													
-												print find_at_tag_viewuser($username, $path["userpath"]). " " .$value["dateofpost"];
+												print "<span>" .find_at_tag_viewuser($username, $path["userpath"]). "</span> " .$value["dateofpost"];
 
 											}
 										
-										print 	'</div>'; 
-										print 	'<div class="usermessage">' .find_hashtags($post). '</div>';
+										print 	'</div>
+											 	<div class="usermessage">' .find_hashtags($post). '</div>';
 												if($value["picpath"]){
 										print   '<div class="postpic"><img src="img/post/' .$value["picpath"]. '"></div>';
 												}
@@ -161,11 +172,16 @@
 											print 	'<div class="comment">' .find_hashtags($post). '</div>';
 											}
 										}
-										print "<hr>";
+
+											print "</div>";
+
 										print "</div>";
 									}
+
 								} else {
-									print '<h1 class="emptyresult">' .$userinfo["username"]. ' hasn\'t written any posts so far!</h1>';
+
+									print '<h1 class="emptyresult"><span>' .$userinfo["username"]. '</span> hasn\'t written any posts yet!</h1>';
+
 								}
 							?>
 
@@ -181,7 +197,11 @@
 			
 				</div>
 
-			</div>
+				</div>
+
+				</article>
+
+			</section>
 
 		</div>
 

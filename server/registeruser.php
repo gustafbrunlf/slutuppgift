@@ -18,6 +18,8 @@
 
 	 			$userpath = substr(md5(rand()), 0, 7);
 
+	 			$password = md5($password);
+
 		 		createUser($username, $password, $email, $userpath);
 
 				$_SESSION["error"] = "Registration completed, please log in!";

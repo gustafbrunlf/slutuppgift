@@ -8,7 +8,21 @@
 
 		$_SESSION["userdata"] = $user;
 
-		#setcookie("userdata", $user["username"], time() + (60*60*24));
+	}
+
+	function checkSession () {
+
+		session_start();
+
+		if (isset($_SESSION["userdata"])) {
+			
+			return true;
+
+		} else {
+
+			return false;
+
+		}
 
 	}
 
@@ -46,7 +60,7 @@
 
 	}
 
-	function getUser ($username, $password) {
+	function validateUser ($username, $password) {
 
 		$query = "SELECT id, username FROM `users` WHERE `username` = '$username' AND `pwd` = '$password'";
 
@@ -144,11 +158,39 @@
 
 	}
 
+	function setUserInfo ($userid, $message) {
+
+		$query = "UPDATE users SET userinfo = '$message' WHERE id = '$userid'";
+
+		insertDBContent($query);
+
+	}
+
+	function getUserInfo ($userid) {
+
+		$query = "SELECT userinfo FROM users WHERE id = '$userid'";
+
+		$result = getDBContent($query);
+
+		return $result;
+
+	}
+
 	function createPostWithPic ($message, $userid, $username, $picpath) {
 
 		$date = date("Y-m-d");
 
 		$query = "INSERT INTO guestbook (message, userid, dateofpost, username, picpath) VALUES ('$message', '$userid', '$date', '$username', '$picpath')";
+
+		insertDBContent($query);
+
+	}
+
+	function createPostPic ($userid, $username, $picpath) {
+
+		$date = date("Y-m-d");
+
+		$query = "INSERT INTO guestbook (userid, dateofpost, username, picpath) VALUES ('$userid', '$date', '$username', '$picpath')";
 
 		insertDBContent($query);
 

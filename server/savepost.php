@@ -3,8 +3,6 @@
 	$message = "";
 	$comment = "";
 
-	require_once("data.php");
-
 	$userid   = $_SESSION["userdata"]["id"];
 	$username = $_SESSION["userdata"]["username"];
 
@@ -12,86 +10,127 @@
 
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-		if (!empty($_POST["message"]) && $_POST["comment"] == "") {
+		if ($_POST["action"] == "post") {
 
 			$message = $_POST["message"];
 
-			if (strlen($message) < 200) {
+			if ($_POST["message"] == "" && $_FILES["upload"]["error"] == 4) { 
 
-				if(!$_FILES["upload"]["error"] == 4) {
+				$_SESSION["error"] = "Please post something!";
+
+			}
+
+			if (!empty($_POST["message"]) && $_FILES["upload"]["error"] == 4) {
+
+				createPost($message, $userid, $username);
+
+			}
+
+			if(!$_FILES["upload"]["error"] == 4 && !empty($_POST["message"])) {
 					
-					if ($_FILES["upload"]["error"] == 0) {
+				if ($_FILES["upload"]["error"] == 0) {
 
-						$file  = $_FILES["upload"]["tmp_name"];
-						$size  = $_FILES["upload"]["size"];
+					$file  = $_FILES["upload"]["tmp_name"];
+					$size  = $_FILES["upload"]["size"];
 
-						$data = getimagesize($file);
+					$data = getimagesize($file);
 
-						if ($data) {
+					if ($data) {
 
-							if ($size < 500000) {
+						if ($size < 500000) {
 
-							$end = explode(".", $_FILES["upload"]["name"])[1];
+						$end = explode(".", $_FILES["upload"]["name"])[1];
 
-							$uploads_dir = "img/post/";
+						$uploads_dir = "img/post/";
 
-							$name = substr(md5(rand()), 0, 7);
+						$name = substr(md5(rand()), 0, 7);
 
-							$picname = $name. "." .$end;
-			
-							move_uploaded_file($file, $uploads_dir.$picname);
+						$picname = $name. "." .$end;
+		
+						move_uploaded_file($file, $uploads_dir.$picname);
 
-							createPostWithPic($message, $userid, $username, $picname);
-
-							} else {
-
-								$_SESSION["error"] = "Maximum size is 0.5MB";
-
-							}
+						createPostWithPic($message, $userid, $username, $picname);
 
 						} else {
 
-							$_SESSION["error"] = "Only images are allowed";
+							$_SESSION["error"] = "Maximum size is 0.5 MB";
 
 						}
 
+					} else {
+
+						$_SESSION["error"] = "Only images are allowed";
+
 					}
 
-				} else {
+				}
 
-					createPost($message, $userid, $username);
+			}
 
-		 		}
+			if(!$_FILES["upload"]["error"] == 4 && $_POST["message"] == "") {
+					
+				if ($_FILES["upload"]["error"] == 0) {
 
-		 	} else {
+					$file  = $_FILES["upload"]["tmp_name"];
+					$size  = $_FILES["upload"]["size"];
 
-		 		$_SESSION["error"] = "200 characters is the maximum";
+					$data = getimagesize($file);
 
-		 	}
+					if ($data) {
 
-		} 
+						if ($size < 500000) {
 
-		if (!empty($_POST["comment"]) && $_POST["message"] == "") {
+						$end = explode(".", $_FILES["upload"]["name"])[1];
+
+						$uploads_dir = "img/post/";
+
+						$name = substr(md5(rand()), 0, 7);
+
+						$picname = $name. "." .$end;
+		
+						move_uploaded_file($file, $uploads_dir.$picname);
+
+						createPostPic($userid, $username, $picname);
+
+						} else {
+
+							$_SESSION["error"] = "Maximum size is 0.5 MB";
+
+						}
+
+					} else {
+
+						$_SESSION["error"] = "Only images are allowed";
+
+					}
+
+				}
+
+			}
+
+		}
+
+		if ($_POST["action"] == "comment") {
 
 			$comment = $_POST["comment"];
 			$id = $_POST["id"];
 
-			if (strlen($comment) < 200) {
-			
-	 			createComment($comment, $userid, $username, $id);
+			if (!empty($_POST["comment"])) {
 
-	 		} else {
+				if (strlen($comment) < 200) {
+				
+		 			createComment($comment, $userid, $username, $id);
 
-	 			$_SESSION["error"] = "200 characters is the maximum";
+		 		}
 
 	 		}
 
-		} 
+	 		if ($_POST["comment"] == "") {
 
-		if (empty($_POST["comment"]) && empty($_POST["message"])) {
+	 			$_SESSION["error"] = "Please comment somehting!";
 
-			$_SESSION["error"] = "Please post a message or a comment";
-
+	 		}
+			
 		}
 
 	}

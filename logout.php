@@ -1,11 +1,11 @@
 <?php 
 
-session_start();
-session_destroy();
+	session_start();
+	session_destroy();
 
-$name = session_name();
+	$name = session_name();
 
-setcookie($name, "", 1);
+	setcookie($name, "", 1);
 
-header("Location: login.php");
-die;
+	header("Location: login.php");
+	die;

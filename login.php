@@ -1,15 +1,17 @@
 <?php
-
+	
 	$error = "";
 
-	session_start();
+	require_once("server/data.php");
 
-	if (isset($_SESSION["userdata"])) {
+	$session = checkSession();
 
-	    header("Location: profile.php");
+	if ($session) {
+
+		header("Location: profile.php");
 	    die;
 
-	}
+	} 
 
 	if (isset($_SESSION["error"])) {
 
@@ -39,7 +41,7 @@
 		
 			<div class="formwrapper">
 
-				<h1>Log in to <span>What's cooking?</span> or:<br>
+				<h1>Log in to <span>What's cooking?</span><br>	or:<br>
 				<a href="register.php">Register here</a></h1>
 				
 				<form action="server/checklogin.php" method="POST">

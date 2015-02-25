@@ -21,6 +21,7 @@
 	$guestbook = getPosts($userid);
 	$getpic    = getPicPath($userid);
 	$following = followingUsers($userid);
+	$userinfo  = getUserInfo($userid);
 
 	if (isset($_SESSION["error"])) {
 
@@ -45,8 +46,12 @@
 			
 			<header>
 				
-				<h3 class="logout"><a href="logout.php">Log out</a></h3>
-				<h3 class="update"><a href="profile.php">Home</a></h3>
+				<nav>
+					<ul id="menu">
+						<li class="logout"><a href="logout.php">Log out</a></li>
+						<li class="update"><a href="profile.php">Home</a></li>
+					</ul>
+				</nav>
 				
 				<h1><a href="profile.php">What's cooking?</a></h1>
 
@@ -61,7 +66,7 @@
 
 			</header>
 
-			<div class="inputwrapper">
+			<section>
 
 				<div class="editprofile">
 
@@ -76,7 +81,9 @@
 					<form enctype="multipart/form-data" action="" method="POST">
 
 						<input class="inputupload" type="file" name="upload">
-						<input class="uploadbutton" type="submit" value="Upload">
+						<h2 class="about">About: </h2>
+						<textarea name="message" id="uploadtext" maxlength="200"><?php if(isset($userinfo)){ foreach ($userinfo as $value) { echo $value["userinfo"]; } }?></textarea>
+						<button id="uploadbutton" type="submit">Sav<span>e</span></button>
 
 					</form>
 
@@ -84,7 +91,7 @@
 
 				</div>	
 
-			</div>	
+			<section>	
 
 		</div>
 

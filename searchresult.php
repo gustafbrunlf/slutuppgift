@@ -1,16 +1,16 @@
 <?php 
 
-	session_start();
+	require_once("server/data.php");
 
-	if (!isset($_SESSION["userdata"])) {
+	$session = checkSession();
 
+	if (!$session) {
 		$_SESSION["error"] = "You need to log in";
 		header("Location: login.php");
 		die;
 
 	}
 	
-	require_once("server/data.php");
 	require_once("server/searchfield.php");
 
 	$userid   = $_SESSION["userdata"]["id"];
@@ -44,8 +44,12 @@
 			
 			<header>
 				
-				<h3 class="logout"><a href="logout.php">Log out</a></h3>
-				<h3 class="update"><a href="profile.php">Home</a></h3>
+				<nav>
+					<ul id="menu">
+						<li class="logout"><a href="logout.php">Log out</a></li>
+						<li class="update"><a href="profile.php">Home</a></li>
+					</ul>
+				</nav>
 				
 				<h1><a href="profile.php">What's cooking?</a></h1>
 
@@ -58,11 +62,11 @@
 
 			</header>
 
-			<div class="inputwrapper">
+			<section>
 
 				<div class="searchresult">
 					
-					<h1 class="userinfo">Search result for: <?= $search; ?></h1>
+					<h1>Search result for: <?= $search; ?></h1>
 					<p>
 
 					<?php 
@@ -115,7 +119,7 @@
 
 				</div>	
 
-			</div>
+			<section>
 
 		</div>
 

@@ -1,58 +1,72 @@
 <?php
 
-$userid = $_SESSION["userdata"]["id"];
+	$userid = $_SESSION["userdata"]["id"];
 
-if (isset($_FILES["upload"])) {
+	if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-	if ($_FILES["upload"]["error"] == 0) {
+		$message = $_POST["message"];
 
-		$picpath = getPicPath($userid);
+		if (isset($_POST["message"])) {
 
-		foreach ($picpath as $value) {
-			$img = "img/profile/" . $value["picpath"];
-			unlink($img);
+			setUserInfo($userid, $message);
+
 		}
 
-		$file  = $_FILES["upload"]["tmp_name"];
-		$size  = $_FILES["upload"]["size"];
+		if (!$_FILES["upload"]["error"] == 4) {
 
-		$data = getimagesize($file);
+			if ($_FILES["upload"]["error"] == 0) {
 
-		if ($data) {
+				$picpath = getPicPath($userid);
 
-			if ($size < 1024*1024) {
+				foreach ($picpath as $value) {
+					$img = "img/profile/" . $value["picpath"];
+					unlink($img);
+				}
 
-				$end = explode(".", $_FILES["upload"]["name"])[1];
+				$file  = $_FILES["upload"]["tmp_name"];
+				$size  = $_FILES["upload"]["size"];
 
-				$uploads_dir = "img/profile/";
+				$data = getimagesize($file);
 
-				$name = substr(md5(rand()), 0, 7);
+				if ($data) {
 
-				$picname = $name. "." .$end;
-				
-				move_uploaded_file($file, $uploads_dir.$picname);
+					if ($size < 1024*1024) {
 
-				createPicPath($picname, $userid);
+						$end = explode(".", $_FILES["upload"]["name"])[1];
 
-				$_SESSION["error"] = "Uploaded";
+						$uploads_dir = "img/profile/";
+
+						$name = substr(md5(rand()), 0, 7);
+
+						$picname = $name. "." .$end;
+						
+						move_uploaded_file($file, $uploads_dir.$picname);
+
+						createPicPath($picname, $userid);
+
+						$_SESSION["error"] = "Uploaded";
+
+					} else {
+
+						$_SESSION["error"] = "Maximum size is 1 MB";
+
+					}
+
+
+				} else {
+
+					$_SESSION["error"] = "Only images are allowed";
+
+				}
 
 			} else {
 
-				$_SESSION["error"] = "Maximum size is 1 MB";
+				$_SESSION["error"] = "Upload error";
 
 			}
 
-
-		} else {
-
-			$_SESSION["error"] = "Only images are allowed";
-
 		}
 
-	} else {
 
-		$_SESSION["error"] = "Upload error";
 
 	}
-
-}

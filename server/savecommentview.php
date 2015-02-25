@@ -1,8 +1,15 @@
 <?php
 
-	session_start();
-
 	require_once("data.php");
+
+	$session = checkSession();
+
+	if (!$session) {
+		$_SESSION["error"] = "You need to log in";
+		header("Location: login.php");
+		die;
+
+	}
 
 	$userid   = $_SESSION["userdata"]["id"];
 	$username = $_SESSION["userdata"]["username"];

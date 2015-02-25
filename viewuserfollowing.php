@@ -1,29 +1,26 @@
 <?php 
-	
-	session_start();
 
-	if (!isset($_SESSION["userdata"])) {
+	require_once("server/data.php");
 
+	$session = checkSession();
+
+	if (!$session) {
 		$_SESSION["error"] = "You need to log in";
 		header("Location: login.php");
 		die;
 
 	}
-
-	require_once("server/data.php");
+	
 	require_once("server/searchfield.php");
 
 	$userinfo = $_GET["username"];
 
 	$data = viewProfile($userinfo);
 
-	foreach ($data as $value) {
-		
-		$getpic        = getPicPath($value["id"]);
-		$following     = followingUsers($value["id"]);
-		$followers     = getFollowers($value["id"]);
-
-	}
+	$getpic    = getPicPath($data[0]["id"]);
+	$following = followingUsers($data[0]["id"]);
+	$followers = getFollowers($data[0]["id"]);
+	$usertext  = getUserInfo($data[0]["id"]);
 
  ?>
 
@@ -41,8 +38,12 @@
 			
 			<header>
 				
-				<h3 class="logout"><a href="logout.php">Log out</a></h3>
-				<h3 class="update"><a href="profile.php">Home</a></h3>
+				<nav>
+					<ul id="menu">
+						<li class="logout"><a href="logout.php">Log out</a></li>
+						<li class="update"><a href="profile.php">Home</a></li>
+					</ul>
+				</nav>
 				
 				<h1><a href="profile.php">What's cooking?</a></h1>
 
@@ -57,9 +58,9 @@
 
 			</header>
 
-			<div class="inputwrapper">
+			<section>
 
-				<div class="profilebox">
+				<div class="followbox">
 
 					<div class="profile profilefollow">
 
@@ -71,49 +72,53 @@
 
 					<h1 class="userinfo"><?= $userinfo["username"]; ?></h1> 
 
+					<div class="following">
+					
+							<p>Following:<br>
+
+							<?php if ($following) : 
+
+								foreach ($following as $value) : ?>
+									
+								<a href="viewuser.php?username=<?= $value["userpath"]; ?>"><?= $value["username"]?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>"></a><br>	
+									
+							<?php endforeach; else : ?>
+
+								<p class="nofollowers"><?= "No-one"; ?></p><br>
+
+							<?php endif; ?>
+
+							</p>
+
+						</div>
+
+						<div class="following">
+
+							<p>Followers:<br>
+							
+							<?php if ($followers) :
+
+								foreach ($followers as $value) : ?>
+									
+								<a href="viewuser.php?username=<?= $value["userpath"]; ?>"><?= $value["username"]; ?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>"></a><br>
+							
+							<?php endforeach; else : ?>
+
+								<p class="nofollowers"><?= "No followers"; ?></p>
+
+							<?php endif; ?>
+
+							</p>
+
+						</div>
+
 					<span class="error"><?= $error; ?></span>
 
 					</div>
 
 				</div>
 
-				<div class="inputfield">
-					
-					<p class="following">Following:<br>
-
-					<?php if ($following) : 
-
-						foreach ($following as $value) : ?>
-							
-						<a href="viewuser.php?username=<?= $value["userpath"]; ?>"><?= $value["username"]?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>"></a><br>	
-							
-					<?php endforeach; else : ?>
-
-						<p class="nofollowers"><?= "You\'re not following anyone, search for fellaz"; ?></p><br>
-
-					<?php endif; ?>
-
-					</p>
-
-					<p class="following">Followers:<br>
-
-					 <?php if ($followers) :
-
-						foreach ($followers as $value) : ?>
-							
-						<a href="viewuser.php?username=<?= $value["userpath"]; ?>"><?= $value["username"]; ?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>"></a><br>
-					
-					<?php endforeach; else : ?>
-
-						<p class="nofollowers"><?= "No followers"; ?></p>
-
-					<?php endif; ?>
-
-					</p>
-
-				</div>		
-
-			</div>
+			<section>
 
 		</div>
 

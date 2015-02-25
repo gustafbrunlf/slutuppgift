@@ -42,9 +42,13 @@
 			
 			<header>
 				
-				<h3 class="logout"><a href="logout.php">Log out</a></h3>
-				<h3 class="update"><a href="profile.php">Home</a></h3>
-				
+				<nav>
+					<ul id="menu">
+						<li class="logout"><a href="logout.php">Log out</a></li>
+						<li class="update"><a href="profile.php">Home</a></li>
+					</ul>
+				</nav>
+
 				<h1><a href="profile.php">What's cooking?</a></h1>
 
 				<form class="search" action="searchresult.php?search=" method="GET">
@@ -56,9 +60,9 @@
 
 			</header>
 
-			<div class="inputwrapper">
+			<section>
 
-				<div class="profilebox">
+				<div class="followbox">
 
 					<div class="profile profilefollow">
 
@@ -70,49 +74,53 @@
 
 						<h1 class="userinfo"><?= $username ?></h1> 
 
+						<div class="following user">
+					
+							<p>You're following:<br>
+
+							<?php if ($following) : 
+
+								foreach ($following as $value) : ?>
+									
+								<a href="viewuser.php?username=<?= $value["userpath"]; ?>"><?= $value["username"]?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>"></a><br>	
+									
+							<?php endforeach; else : ?>
+
+								<p class="nofollowers"><?= "No-one"; ?></p><br>
+
+							<?php endif; ?>
+
+							</p>
+
+						</div>
+
+						<div class="following user">
+
+							<p>Your followers:<br>
+							
+							<?php if ($followers) :
+
+								foreach ($followers as $value) : ?>
+									
+								<a href="viewuser.php?username=<?= $value["userpath"]; ?>"><?= $value["username"]; ?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>"></a><br>
+							
+							<?php endforeach; else : ?>
+
+								<p class="nofollowers"><?= "No followers"; ?></p>
+
+							<?php endif; ?>
+
+							</p>
+
+						</div>
+
 						<span class="error"><?= $error; ?></span>
 
 					</div>
-
+				
 				</div>
 
-				<div class="inputfield">
-					
-					<p class="following">Following:<br>
-
-					<?php if ($following) : 
-
-						foreach ($following as $value) : ?>
-							
-						<a href="viewuser.php?username=<?= $value["userpath"]; ?>"><?= $value["username"]?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>"></a><br>	
-							
-					<?php endforeach; else : ?>
-
-						<p class="nofollowers"><?= "You\'re not following anyone, search for fellaz"; ?></p><br>
-
-					<?php endif; ?>
-
-					</p>
-
-					<p class="following">Followers:<br>
-					
-					<?php if ($followers) :
-
-						foreach ($followers as $value) : ?>
-							
-						<a href="viewuser.php?username=<?= $value["userpath"]; ?>"><?= $value["username"]; ?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>"></a><br>
-					
-					<?php endforeach; else : ?>
-
-						<p class="nofollowers"><?= "No followers"; ?></p>
-
-					<?php endif; ?>
-
-					</p>
-
-				</div>		
-
-			</div>
+			</section>
 
 		</div>
 
