@@ -5,9 +5,17 @@
 	$session = checkSession();
 
 	if (!$session) {
+
 		$_SESSION["error"] = "You need to log in";
 		header("Location: login.php");
 		die;
+
+	}
+
+	if (isset($_SESSION["error"])) {
+
+		$error = $_SESSION["error"];
+		unset($_SESSION["error"]);
 
 	}
 
@@ -18,25 +26,19 @@
 	$following = followingUsers($userid);
 	$followers = getFollowers($userid);
 
-	if (isset($_SESSION["error"])) {
-
-		$error = $_SESSION["error"];
-		unset($_SESSION["error"]);
-
-	}
-
  ?>
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>What's cooking?</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/mobile.css">
-  </head>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>What's cooking?</title>
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/mobile.css">
+	</head>
  	
 	<body>
 
@@ -47,11 +49,11 @@
 				<nav>
 					<ul id="menu">
 						<li class="logout"><a href="logout.php">Log out</a></li>
-						<li class="update"><a href="profile.php">Home</a></li>
+						<li class="update"><a href="index.php">Home</a></li>
 					</ul>
 				</nav>
 
-				<h1><a href="profile.php">What's cooking?</a></h1>
+				<h1><a href="index.php">What's cooking?</a></h1>
 
 				<form class="search" action="searchresult.php?search=" method="GET">
 
@@ -84,7 +86,7 @@
 
 								foreach ($following as $value) : ?>
 									
-								<a href="viewuser.php?username=<?= $value["userpath"]; ?>"><?= $value["username"]?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.png"; } ?>"></a><br>	
+								<a href="userprofile.php?username=<?= $value["userpath"]; ?>"><?= $value["username"]?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.png"; } ?>"></a><br>	
 									
 							<?php endforeach; else : ?>
 
@@ -104,7 +106,7 @@
 
 								foreach ($followers as $value) : ?>
 									
-								<a href="viewuser.php?username=<?= $value["userpath"]; ?>"><?= $value["username"]; ?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.png"; } ?>"></a><br>
+								<a href="userprofile.php?username=<?= $value["userpath"]; ?>"><?= $value["username"]; ?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.png"; } ?>"></a><br>
 							
 							<?php endforeach; else : ?>
 

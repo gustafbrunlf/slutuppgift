@@ -1,6 +1,7 @@
 <?php 
 
 	require_once("server/functions.php");
+	require_once("server/searchfield.php");
 
 	$session = checkSession();
 
@@ -10,8 +11,6 @@
 		die;
 
 	}
-	
-	require_once("server/searchfield.php");
 
 	$userinfo = $_GET["username"];
 	$profilename = $_SESSION["userdata"]["username"];
@@ -36,16 +35,15 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>What's cooking?</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/mobile.css">
-    <script src="js/jquery.min.js"></script>
-    <script src="js/script.js"></script>
-  </head>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>What's cooking?</title>
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/mobile.css">
+	</head>
 
 	<body>
 
@@ -56,11 +54,11 @@
 				<nav>
 					<ul id="menu">
 						<li class="logout"><a href="logout.php">Log out</a></li>
-						<li class="update"><a href="profile.php">Home</a></li>
+						<li class="update"><a href="index.php">Home</a></li>
 					</ul>
 				</nav>
 
-				<h1><a href="profile.php">What's cooking?</a></h1>
+				<h1><a href="index.php">What's cooking?</a></h1>
 
 				<form class="search" action="searchresult.php?search=" method="GET">
 
@@ -102,8 +100,8 @@
 							</tr>
 							<tr>
 								<td><?= count($countpost); ?></td>
-								<td><a href="viewuserfollowing.php?username=<?= $userinfo["userpath"]; ?>"><?= count($following); ?></a></td>
-								<td><a href="viewuserfollowing.php?username=<?= $userinfo["userpath"]; ?>"><?= count($followers); ?></a></td>
+								<td><a href="userfollowing.php?username=<?= $userinfo["userpath"]; ?>"><?= count($following); ?></a></td>
+								<td><a href="userfollowing.php?username=<?= $userinfo["userpath"]; ?>"><?= count($followers); ?></a></td>
 							</tr>
 						</table>
 						
@@ -140,7 +138,7 @@
 										print	'</div> 
 												<div class="toggle">
 												<div class="commentfield">
-												<form action="server/savecommentview.php" method="POST">
+												<form action="server/savecomment.php" method="POST">
 												<input type="text" name="comment" class="commentinput" placeholder="' .$value["username"]. '">
 												<input type="hidden" name="id" value="' .$value["id"]. '">
 												<button type="submit" class="commentbutton">Repl<span>y</span></button>
@@ -190,6 +188,9 @@
 			</section>
 
 		</div>
+
+	<script src="js/jquery.min.js"></script>
+    <script src="js/script.js"></script>
 
 	</body>
 

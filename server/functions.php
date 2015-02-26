@@ -262,12 +262,6 @@
 
 	}
 
-	function find_hashtags($tweet) {
-	
-		return preg_replace("/(#([\wåäöÅÄÖ]+))/", '<a href="searchresult.php?search=%23$2">$1</a>' , $tweet);
-
-	}
-
 	function getHashtags($hashtag) {
 
 		$query = "SELECT * FROM guestbook WHERE message LIKE '%$hashtag%'";
@@ -275,6 +269,12 @@
 		$result = getDBContent($query);
 
 		return $result;
+
+	}
+
+	function find_hashtags($tweet) {
+	
+		return preg_replace("/(#([\wåäöÅÄÖ]+))/", '<a href="searchresult.php?search=%23$2">$1</a>' , $tweet);
 
 	}
 
@@ -292,13 +292,13 @@
 
 		if ($username == $_SESSION["userdata"]["username"]) {
 
-			return preg_replace('/(?<=^|\s)@([a-z0-9_]+)/i', '<a href="profile.php">@$1</a>', substr_replace($username, "@$username", 0))	;
+			return preg_replace('/(?<=^|\s)@([a-z0-9_]+)/i', '<a href="index.php">@$1</a>', substr_replace($username, "@$username", 0))	;
 
 		 } else {
 
 			$userpath = getUserpath($username);
 
-			return preg_replace('/(?<=^|\s)@([a-z0-9_]+)/i', '<a href="viewuser.php?username=' .$userpath[0]["userpath"]. '">@$1</a>', substr_replace($username, "@$username", 0));
+			return preg_replace('/(?<=^|\s)@([a-z0-9_]+)/i', '<a href="userprofile.php?username=' .$userpath[0]["userpath"]. '">@$1</a>', substr_replace($username, "@$username", 0));
 
 		}
 

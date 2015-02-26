@@ -1,6 +1,7 @@
 <?php 
 
 	require_once("server/functions.php");
+	require_once("server/searchfield.php");
 
 	$session = checkSession();
 
@@ -10,8 +11,6 @@
 		die;
 
 	}
-	
-	require_once("server/searchfield.php");
 
 	$userinfo = $_GET["username"];
 
@@ -26,14 +25,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>What's cooking?</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/mobile.css">
-  </head>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>What's cooking?</title>
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/mobile.css">
+	</head>
  	
 	<body>
 
@@ -44,11 +43,11 @@
 				<nav>
 					<ul id="menu">
 						<li class="logout"><a href="logout.php">Log out</a></li>
-						<li class="update"><a href="profile.php">Home</a></li>
+						<li class="update"><a href="index.php">Home</a></li>
 					</ul>
 				</nav>
 				
-				<h1><a href="profile.php">What's cooking?</a></h1>
+				<h1><a href="index.php">What's cooking?</a></h1>
 
 				<form class="search" action="searchresult.php?search=" method="GET">
 
@@ -87,11 +86,11 @@
 
 								if ($username == $_SESSION["userdata"]["username"]) {
 
-									$userpath = "profile.php";
+									$userpath = "index.php";
 
 								} else {
 
-									$userpath = "viewuser.php?username=".$value["userpath"];
+									$userpath = "userprofile.php?username=".$value["userpath"];
 
 								}
 
@@ -121,11 +120,11 @@
 
 								if ($username == $_SESSION["userdata"]["username"]) {
 
-									$userpath = "profile.php";
+									$userpath = "index.php";
 
 								} else {
 
-									$userpath = "viewuser.php?username=".$value["userpath"];
+									$userpath = "userprofile.php?username=".$value["userpath"];
 
 								}
 
@@ -149,7 +148,7 @@
 
 				</div>
 
-			<section>
+			</section>
 
 		</div>
 

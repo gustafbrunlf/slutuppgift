@@ -1,17 +1,25 @@
 <?php
 
 	require_once("server/functions.php");
+	require_once("server/searchfield.php"); 
 
 	$session = checkSession();
 
 	if (!$session) {
+
 		$_SESSION["error"] = "You need to log in";
 		header("Location: login.php");
 		die;
 
 	}
 
-	require_once("server/searchfield.php"); 
+	if (isset($_SESSION["error"])) {
+
+		$error = $_SESSION["error"];
+		unset($_SESSION["error"]);
+
+	}
+
 	require_once("server/savepost.php");
 
 	$userid   = $_SESSION["userdata"]["id"];
@@ -24,27 +32,19 @@
 	$userinfo  = getUserInfo($userid);
 	$countpost = countPosts($userid);
 
-	if (isset($_SESSION["error"])) {
-
-		$error = $_SESSION["error"];
-		unset($_SESSION["error"]);
-
-	}
-
  ?>
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>What's cooking?</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/mobile.css">
 
-
-  </head>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>What's cooking?</title>
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/mobile.css">
+	</head>
  	
 	<body>
 
@@ -59,7 +59,7 @@
 					</ul>
 				</nav>
 				
-				<h1><a href="profile.php">What's cooking?</a></h1>
+				<h1><a href="index.php">What's cooking?</a></h1>
 
 				<form class="search" action="searchresult.php?search=" method="GET">
 
@@ -99,8 +99,8 @@
 								</tr>
 								<tr>
 									<td><?= count($countpost); ?></td>
-									<td><a href="following.php"><?= count($following); ?></a></td>
-									<td><a href="following.php"><?= count($followers); ?></a></td>
+									<td><a href="indexfollowing.php"><?= count($following); ?></a></td>
+									<td><a href="indexfollowing.php"><?= count($followers); ?></a></td>
 								</tr>
 							</table>
 

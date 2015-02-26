@@ -16,15 +16,14 @@
 ?>
 
 <!DOCTYPE html>
-
 <html lang="en">
 
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>What's cooking?</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/register.css">
-  </head>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>What's cooking?</title>
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/register.css">
+	</head>
 
 	<body>
 

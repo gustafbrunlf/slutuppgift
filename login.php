@@ -1,14 +1,14 @@
 <?php
 	
-	$error = "";
-
 	require_once("server/functions.php");
+
+	$error = "";
 
 	$session = checkSession();
 
 	if ($session) {
 
-		header("Location: profile.php");
+		header("Location: index.php");
 	    die;
 
 	} 
@@ -24,17 +24,15 @@
 ?>
 
 <!DOCTYPE html>
-
 <html lang="en">
 
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>What's cooking?</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/login.css">
-
-  </head>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>What's cooking?</title>
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/login.css">
+	</head>
 
 	<body>
 
