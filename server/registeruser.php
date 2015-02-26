@@ -24,7 +24,7 @@
 
 				$_SESSION["error"] = "Registration completed, please log in!";
 
-				header("Location: login.php");
+				header("Location: index.php");
 				die;
 
 		 	}

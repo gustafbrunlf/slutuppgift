@@ -42,7 +42,7 @@
 
 			} else {
 
-				$searcherror = "Username or hashtag not found";
+				$searcherror = "No matches!";
 				
 			}
 

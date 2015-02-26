@@ -6,7 +6,7 @@
 
 	if ($session) {
 		
-		header("Location: index.php");
+		header("Location: profile.php");
 		die;
 
 	}
@@ -22,14 +22,14 @@
 
 			createSession($user);
 
-			header("Location: ../index.php");
+			header("Location: ../profile.php");
 			die;
 
 		} else {
 
 	 	unset($_SESSION["userdata"]);
 	 	$_SESSION["error"] = "Invalid log in";
-	 	header("Location: ../login.php");
+	 	header("Location: ../index.php");
 	 	die;
 
 	   }

@@ -7,7 +7,7 @@
 	if (!$session) {
 		
 		$_SESSION["error"] = "You need to log in";
-		header("Location: login.php");
+		header("Location: index.php");
 		die;
 
 	}

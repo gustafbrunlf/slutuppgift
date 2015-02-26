@@ -292,7 +292,7 @@
 
 		if ($username == $_SESSION["userdata"]["username"]) {
 
-			return preg_replace('/(?<=^|\s)@([a-z0-9_]+)/i', '<a href="index.php">@$1</a>', substr_replace($username, "@$username", 0))	;
+			return preg_replace('/(?<=^|\s)@([a-z0-9_]+)/i', '<a href="profile.php">@$1</a>', substr_replace($username, "@$username", 0))	;
 
 		 } else {
 

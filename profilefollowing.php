@@ -7,7 +7,7 @@
 	if (!$session) {
 
 		$_SESSION["error"] = "You need to log in";
-		header("Location: login.php");
+		header("Location: index.php");
 		die;
 
 	}
@@ -49,11 +49,11 @@
 				<nav>
 					<ul id="menu">
 						<li class="logout"><a href="logout.php">Log out</a></li>
-						<li class="update"><a href="index.php">Home</a></li>
+						<li class="update"><a href="profile.php">Home</a></li>
 					</ul>
 				</nav>
 
-				<h1><a href="index.php">What's cooking?</a></h1>
+				<h1><a href="profile.php">What's cooking?</a></h1>
 
 				<form class="search" action="searchresult.php?search=" method="GET">
 
