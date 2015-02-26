@@ -16,7 +16,7 @@
 				$username = $_POST["username"];
 				$password = $_POST["password"];
 
-				$user = validateUser($_POST["username"], md5($_POST["password"]));
+				$user = validateUser($username, md5($password));
 
 				if ($user) {
 
