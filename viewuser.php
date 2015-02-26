@@ -23,6 +23,7 @@
 	$following     = followingUsers($data[0]["id"]);
 	$followers     = getFollowers($data[0]["id"]);
 	$usertext 	   = getUserInfo($data[0]["id"]);
+	$countpost 	   = countPosts($data[0]["id"]);
 
 	if (isset($_SESSION["error"])) {
 
@@ -76,13 +77,13 @@
 
 					<div class="center">
 
-				<div class="profilebox">
+				<div class="profilebox view">
 
-					<div class="profile view">
+					<div class="profile">
 
 					<?php foreach ($picpath as $value): ?>
 
-					<img class="profilepic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>">
+					<img class="profilepic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.png"; } ?>">
 
 					<?php endforeach; $userinfo = array_pop($data); ?>
 
@@ -100,7 +101,7 @@
 								<th>Followers:</th>
 							</tr>
 							<tr>
-								<td><?= count($guestbookpost); ?></td>
+								<td><?= count($countpost); ?></td>
 								<td><a href="viewuserfollowing.php?username=<?= $userinfo["userpath"]; ?>"><?= count($following); ?></a></td>
 								<td><a href="viewuserfollowing.php?username=<?= $userinfo["userpath"]; ?>"><?= count($followers); ?></a></td>
 							</tr>
@@ -128,19 +129,10 @@
 									foreach ($guestbookpost as $value) {
 										$post = $value["message"];
 										$username = $value["username"];
-										$userpath = ltrim ($username, '@');
-										$userpath = getUserpath($userpath);
-										print  '<div class="wrapper">
-												<div id="toggle">
-											 	<div class="postinfo">';
-								
-											foreach ($userpath as $path) {
-													
-												print "<span>" .find_at_tag_viewuser($username, $path["userpath"]). "</span> " .$value["dateofpost"];
 
-											}
-										
-										print 	'</div>
+										print  '<div class="wrapper">
+												<div class="toggled">
+											 	<div class="postinfo"><span>' .get_profile_link($username). '</span> ' .$value["dateofpost"]. '</div>
 											 	<div class="usermessage">' .convertUrl(find_hashtags($post)). '</div>';
 												if($value["picpath"]){
 										print   '<div class="postpic"><img src="img/post/' .$value["picpath"]. '"></div>';
@@ -149,36 +141,27 @@
 												<div class="toggle">
 												<div class="commentfield">
 												<form action="server/savecommentview.php" method="POST">
-												<input type="text" name="comment" class="commentinput">
+												<input type="text" name="comment" class="commentinput" placeholder="' .$value["username"]. '">
 												<input type="hidden" name="id" value="' .$value["id"]. '">
 												<button type="submit" class="commentbutton">Repl<span>y</span></button>
 												</form></div>';
 												
 										$getcomments = getComments($value["id"]);
+										
 										if ($getcomments) {
+
 											foreach ($getcomments as $value) {
+												
 												$post = $value["message"];
 												$username = $value["username"];
-												$usernameat = ltrim ($username, '@');
-												$userpath = getUserpath($usernameat);
-											print 	'<div class="commentinfo">';
-											if ($usernameat == $profilename) {
-												print find_at_tag_profile($username);
-											} else {
-												foreach ($userpath as $path) {
-														
-													print find_at_tag_viewuser($username, $path["userpath"]). " " .$value["dateofpost"];
-												}
-											}
-												
-											print 	'</div>';
-											print 	'<div class="comment">' .convertUrl(find_hashtags($post)). '</div>';
+												print 	'<div class="commentinfo"><span>' .get_profile_link($username). '</span> ' .$value["dateofpost"]. '</div>
+														<div class="comment">' .convertUrl(find_hashtags($post)). '</div>';
 											}
 										}
 
 											print "</div>";
-
 										print "</div>";
+
 									}
 
 								} else {

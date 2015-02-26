@@ -69,7 +69,7 @@
 
 					<?php foreach ($getpic as $value): ?>
 
-					<img class="profilepic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>">
+					<img class="profilepic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.png"; } ?>">
 
 					<?php endforeach; $userinfo = array_pop($data); ?>
 
@@ -81,9 +81,23 @@
 
 							<?php if ($following) : 
 
-								foreach ($following as $value) : ?>
-									
-								<a href="viewuser.php?username=<?= $value["userpath"]; ?>"><?= $value["username"]?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>"></a><br>	
+								foreach ($following as $value) : 
+
+								$username = $value["username"];
+
+								if ($username == $_SESSION["userdata"]["username"]) {
+
+									$userpath = "profile.php";
+
+								} else {
+
+									$userpath = "viewuser.php?username=".$value["userpath"];
+
+								}
+
+							?>
+							
+								<a href="<?= $userpath; ?>"><?= $value["username"]?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.png"; } ?>"></a><br>	
 									
 							<?php endforeach; else : ?>
 
@@ -101,9 +115,23 @@
 							
 							<?php if ($followers) :
 
-								foreach ($followers as $value) : ?>
+								foreach ($followers as $value) : 
+
+								$username = $value["username"];
+
+								if ($username == $_SESSION["userdata"]["username"]) {
+
+									$userpath = "profile.php";
+
+								} else {
+
+									$userpath = "viewuser.php?username=".$value["userpath"];
+
+								}
+
+							?>
 									
-								<a href="viewuser.php?username=<?= $value["userpath"]; ?>"><?= $value["username"]; ?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>"></a><br>
+								<a href="<?= $userpath; ?>"><?= $value["username"]; ?><img class="searchpic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.png"; } ?>"></a><br>
 							
 							<?php endforeach; else : ?>
 

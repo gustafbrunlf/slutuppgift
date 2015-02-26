@@ -74,7 +74,7 @@
 
 					<?php foreach ($getpic as $value) : ?>
 
-					<img class="profilepic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.jpg"; } ?>">
+					<img class="profilepic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.png"; } ?>">
 
 					<?php endforeach ?>
 
@@ -93,7 +93,7 @@
 
 				</div>	
 
-			<section>	
+			</section>	
 
 		</div>
 

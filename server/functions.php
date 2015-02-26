@@ -90,9 +90,19 @@
 
 	}
 
+	function countPosts ($userid) {
+
+		$query = "SELECT * FROM guestbook WHERE userid = '$userid' AND replyid IS NULL";
+
+		$result = getDBContent($query);
+
+		return $result;
+
+	}
+
 	function getPostsProfile ($userid) {
 
-		$query = "SELECT * FROM guestbook WHERE userid = '$userid' AND replyid IS NULL OR userid IN ( SELECT followid FROM following WHERE userid = '$userid' ) ORDER BY id DESC";
+		$query = "SELECT * FROM guestbook WHERE userid = '$userid' AND replyid IS NULL OR userid IN ( SELECT followid FROM following WHERE userid = '$userid') AND replyid IS NULL ORDER BY id DESC";
 
 		$result = getDBContent($query);
 
@@ -268,24 +278,29 @@
 
 	}
 
-	function find_at_tag_profile($username) {
-
-		return preg_replace('/(?<=^|\s)@([a-z0-9_]+)/i', '<a href="profile.php">@$1</a>', $username);
-
-
-	}
-
-	function find_at_tag_viewuser ($username, $userpath) {
-
-		return preg_replace('/(?<=^|\s)@([a-z0-9_]+)/i', '<a href="viewuser.php?username=' .$userpath. '">@$1</a>', $username);
-
-	}
-
 	function convertUrl ($input) {
 
 		$pattern = "/(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))/";
 		
 		return preg_replace($pattern, '<a href="$1" target="_blank">$1</a>', $input);
+
+	}
+
+	function get_profile_link ($username) {
+
+		$username = ltrim ($username, '@');
+
+		if ($username == $_SESSION["userdata"]["username"]) {
+
+			return preg_replace('/(?<=^|\s)@([a-z0-9_]+)/i', '<a href="profile.php">@$1</a>', substr_replace($username, "@$username", 0))	;
+
+		 } else {
+
+			$userpath = getUserpath($username);
+
+			return preg_replace('/(?<=^|\s)@([a-z0-9_]+)/i', '<a href="viewuser.php?username=' .$userpath[0]["userpath"]. '">@$1</a>', substr_replace($username, "@$username", 0));
+
+		}
 
 	}
 

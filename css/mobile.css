@@ -8,12 +8,12 @@
 		height: 100%;
 		font-weight: 300;
 		font-family: 'Open Sans', sans-serif;
-		
-		-webkit-overflow-scrolling: touch;
-		-moz-overflow-scrolling: touch;
-		-ms-overflow-scrolling: touch;
-		-o-overflow-scrolling: touch;
-		overflow-scrolling: touch;
+		background: url('../img/post/06485c9.jpg') no-repeat center center fixed; 
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+		overflow: scroll;
 	}
 
 	header{	
@@ -135,13 +135,6 @@
 		width: 100%;
 	}
 
-	article {
-		width:100%;
-		float:left;
-		position:relative;
-		overflow:hidden;
-	}
-
 	.center {
 		width:100%;
 		max-width:924px;
@@ -155,11 +148,15 @@
 		height: 300px;
 		width: 300px;
 		margin: 30px auto;
+		border-radius: 10px;
+		border: 1px solid #ccc;
+		text-align: center;
+		background: rgba(236,236,236, 0.9);
 	}
 
 	.followbox{
 		margin: 30px auto;
-		width: 520px;
+		width: 300px;
 		height: 100%;
 	}
 
@@ -168,10 +165,7 @@
 		padding: 10px 0px;
 		height: 300px;
 		width: 300px;
-		border: 1px solid #ccc;
 		text-align: center;
-		background: #ECECEC;
-		border-radius: 10px;
 	}
 
 	.profilepic{
@@ -193,9 +187,12 @@
 		width: 300px;
 		padding: 20px 0px 30px 0px;
 		margin-left: 10px;
+		background: rgba(236,236,236, 0.9);
+		border-radius: 10px;
+		border: 1px solid #ccc;
 	}
 
-	.profile.view{
+	.profilebox.view{
 		height: 320px;
 	}
 
@@ -237,12 +234,12 @@
 
 	.inputfield{
 		width: 300px;
-		margin: 50px auto;	
+		margin: 0px auto;	
 		margin-bottom: 30px;
 		padding: 20px 10px 0px 15px;
-		background: #ECECEC;
+		background: rgba(236,236,236, 0.9);
 		border: 1px solid #ccc;
-		border-radius: 10px;	
+		border-radius: 10px;
 	}
 
 	.postform{
@@ -376,8 +373,12 @@
 
 	.commentinfo{
 		padding: 0px 0px 0px 10px; 
-		font-weight: bold;
 		font-size: 15px;
+	}
+
+	.commentinfo span{
+		font-family: 'Lobster', cursive;
+		padding-right: 5px;
 	}
 
 	.comment{
@@ -460,12 +461,12 @@
 		text-align: center;
 	}
 
-	#toggle{
+	.toggled{
 		cursor: pointer;
 	}
 
 	.toggle{
-		/*display:none;*/
+		display:none;
 	}
 
 	.error{
@@ -483,7 +484,7 @@
 		margin: 30px auto;
 		border: 1px solid #ccc;
 		text-align: center;
-		background: #ECECEC;
+		background: rgba(236,236,236, 0.9);
 		border-radius: 10px;
 	}
 
@@ -535,6 +536,34 @@
 
 	#count{
 		font-size: 15px;
+	}
+
+	input{
+		font-family: 'Lobster', cursive;
+	}
+
+	::-webkit-input-placeholder {
+   		color: rgba(0, 0, 0, 0.6);
+   		font-family: 'Lobster', cursive;
+   		letter-spacing: 1px;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+	   color: rgba(0, 0, 0, 0.6); 
+	   font-family: 'Lobster', cursive;
+	   letter-spacing: 1px;
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+	   color: rgba(0, 0, 0, 0.6);  
+	   font-family: 'Lobster', cursive;
+	   letter-spacing: 1px;
+	}
+
+	:-ms-input-placeholder {  
+	   color: rgba(0, 0, 0, 0.6);  
+	   font-family: 'Lobster', cursive;
+	   letter-spacing: 1px;
 	}
 
 }
