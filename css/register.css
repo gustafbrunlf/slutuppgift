@@ -133,7 +133,7 @@
 	}
 
 	#registererror{
-		text-align: left;
+		text-align: center;
 		padding: 5px;
 		font-size: 15px;
 		text-transform: uppercase;
@@ -274,7 +274,7 @@
 	}
 
 	#registererror{
-		text-align: left;
+		text-align: center;
 		padding: 5px;
 		font-size: 15px;
 		text-transform: uppercase;

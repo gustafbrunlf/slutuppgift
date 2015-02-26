@@ -44,7 +44,7 @@
 
 	function createUser ($username, $password, $email, $userpath) {
 
-		$query = "INSERT INTO `users` (`username`, `pwd`, `email`, `userpath`) VALUES ('$username', '$password', '$email', '$userpath')";
+		$query = "INSERT INTO users (username, pwd, email, userpath) VALUES ('$username', '$password', '$email', '$userpath')";
 
 		insertDBContent($query);
 
@@ -52,7 +52,7 @@
 
 	function checkUsername ($username) {
 
-		$query = "SELECT id, username FROM `users` WHERE `username` = '$username'";
+		$query = "SELECT id, username FROM users WHERE username = '$username'";
 
 		$result = getDBContentRow($query);
 
@@ -62,7 +62,7 @@
 
 	function validateUser ($username, $password) {
 
-		$query = "SELECT id, username FROM `users` WHERE `username` = '$username' AND `pwd` = '$password'";
+		$query = "SELECT id, username FROM users WHERE username = '$username' AND `pwd` = '$password'";
 
 		$result = getDBContentRow($query);
 
@@ -226,7 +226,7 @@
 
 	function checkFollower ($userid, $followid) {
 
-		$query = "SELECT userid, followid FROM `following` WHERE `userid` = '$userid' AND `followid` = '$followid'";
+		$query = "SELECT userid, followid FROM following WHERE userid = '$userid' AND `followid` = '$followid'";
 
 		$result = getDBContent($query);
 
@@ -236,7 +236,7 @@
 
 	function unFollowUser ($userid, $followid) {
 
-		$query = "DELETE FROM following WHERE `userid` = '$userid' AND `followid` = '$followid'";
+		$query = "DELETE FROM following WHERE userid = '$userid' AND followid = '$followid'";
 
 		insertDBContent($query);
 
