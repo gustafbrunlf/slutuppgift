@@ -2,19 +2,11 @@ $(document).ready(function(){
 
     //$(".toggle").hide();
 
-  	$("#toggle").click(function(){
+    $("#toggle").click(function(){
 
         $(this).next(".toggle").slideToggle("slow");
 
     });
-
-    	
-//         $(".toggle").slideUp();
-// $("#toggle").click(function(){
-//     $(this).next(".toggle").slideToggle("slow");
-//   });
-	
-	//});
 
 
     $('#textarea').keyup(function(){

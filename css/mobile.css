@@ -58,7 +58,7 @@
 		font-size:12px;
 		font-weight:500;
 		text-transform:uppercase;
-		padding:0 5px;
+		padding:0px 5px 0px 10px;
 		letter-spacing:2px;
 		text-align:center;
 		border-right:1px solid rgba(0,0,0,0);
@@ -71,17 +71,21 @@
 		color:#79638c;
 	}
 
+	#menu li a span{
+		display: none;
+	}
+
 	header h1 {
-		width: 200px;
+		width: 167px;
 		height: 80px;
 		position:absolute;
 		top:0;
-		right:7px;
+		right:5px;
 
 	}
 
 	header h1 a{
-		font-size: 2.5em;
+		font-size: 2.1em;
   		z-index: 10000;
 		font-family: 'Lobster', cursive;
 		line-height: 80px;
@@ -89,14 +93,14 @@
 
 	.search{
 		height: 30px;
-		width: 400px;
+		width: 300px;
 		position: absolute;
 		top: 80px;	
-  		left:20px;
+  		left:10px;
 	}
 
 	#searchinput{
-		width: 280px;
+		width: 210px;
 		height: 33px;
 		padding: 4px;
 		outline: none;
@@ -127,7 +131,7 @@
 	}
 
 	section{
-		padding-top: 100px;
+		padding-top: 140px;
 		width: 100%;
 	}
 
@@ -148,23 +152,22 @@
 	}
 
 	.profilebox{
-		height: 320px;
-		width: 380px;
+		height: 300px;
+		width: 300px;
 		margin: 30px auto;
 	}
 
 	.followbox{
-		margin: 80px auto;
+		margin: 30px auto;
 		width: 520px;
 		height: 100%;
 	}
 
 	.profile{
 		float: left;
-		padding: 20px 0px;
-		height: 320px;
-		width: 380px;
-		margin-bottom: 30px;
+		padding: 10px 0px;
+		height: 300px;
+		width: 300px;
 		border: 1px solid #ccc;
 		text-align: center;
 		background: #ECECEC;
@@ -187,9 +190,13 @@
 
 	.profilefollow{
 		height: 100%;
-		width: 500px;
+		width: 300px;
 		padding: 20px 0px 30px 0px;
-		margin-left: 20px;
+		margin-left: 10px;
+	}
+
+	.profile.view{
+		height: 320px;
 	}
 
 	.userinfo{
@@ -216,7 +223,7 @@
 		float: left;
 		font-size: 25px;
 		padding: 10px 30px;	
-		margin-left: 40px;	
+		margin-left: 65px;	
 		text-align: left;
 	}
 
@@ -229,23 +236,23 @@
 	}
 
 	.inputfield{
-		width: 380px;
-		margin: 10px auto;	
+		width: 300px;
+		margin: 50px auto;	
 		margin-bottom: 30px;
-		padding: 25px 25px 0px 25px;
+		padding: 20px 10px 0px 15px;
 		background: #ECECEC;
 		border: 1px solid #ccc;
 		border-radius: 10px;	
 	}
 
 	.postform{
-		width: 350px;
+		width: 300px;
 		margin-bottom: 30px;
 	}
 
 	.inputarea{
-		width: 330px;
-		height: 100px;
+		width: 270px;
+		height: 70px;
 		outline: none;
 		padding: 10px;
 		font-size: 15px;
@@ -260,7 +267,7 @@
 	}
 	
 	.inputbutton{
-		width: 330px;
+		width: 270px;
 		height: 40px;
 		color: #fff;
 		background:#000; 
@@ -290,7 +297,7 @@
 	}
 
 	.result{
-		width: 330px;
+		width: 270px;
 	}
 
 	.wrapper{
@@ -304,6 +311,7 @@
 	.emptyresult{
 		font-size: 30px;
 		text-align: center;
+		padding-bottom: 20px;
 	}
 
 	.emptyresult span{
@@ -329,7 +337,7 @@
 	}
 
 	.commentinput{
-		width: 290px;
+		width: 240px;
 		height: 30px;
 		padding: 5px;
 		outline: none;
@@ -345,7 +353,7 @@
 	}
 
 	.commentbutton{
-		width: 290px;
+		width: 240px;
 		height: 20px;
 		margin-top: 5px;	
 		color: #fff;
@@ -380,7 +388,7 @@
 	.followbutton{
 		margin-top: 10px;
 		height: 30px;
-		width: 300px;
+		width: 260px;
 		color: #fff;
 		background:#000; 
 		text-transform: uppercase;
@@ -411,17 +419,17 @@
 	}
 
 	.searchresult{
-		width: 600px;
-		margin: 160px auto;
+		width: 300px;
+		margin: 30px auto;
 		padding: 35px;
 		background: #ECECEC;
 		border: 1px solid #ccc;
 		border-radius: 10px;
-		font-size: 30px;	
+		font-size: 20px;	
 	}
 
 	.searchresult p{
-		font-size: 30px;
+		font-size: 20px;
 	}
 
 	.searchresult a{
@@ -435,19 +443,13 @@
 		margin-left: 5px;
 	}
 
-	.viewfollowers{
-		float: left;
-		padding: 30px;
-		margin: 100px;
-	}
-
 	.nofollowers {
 		font-size: 25px;
 	}
 
 	.userstatistics{
 		margin: 10px 0px 0px 20px;
-		font-size: 20px;
+		font-size: 15px;
 	}
 
 	.userstatistics th{
@@ -475,10 +477,10 @@
 	}
 
 	.editprofile{
-		height: 39	0px;
-		width: 400px;
+		height: 390px;
+		width: 300px;
 		padding: 20px;
-		margin: 80px auto;
+		margin: 30px auto;
 		border: 1px solid #ccc;
 		text-align: center;
 		background: #ECECEC;

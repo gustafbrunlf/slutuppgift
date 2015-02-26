@@ -1,6 +1,6 @@
 <?php
 
-	require_once("server/data.php");
+	require_once("server/functions.php");
 
 	$session = checkSession();
 
@@ -17,7 +17,7 @@
 	$userid   = $_SESSION["userdata"]["id"];
 	$username = $_SESSION["userdata"]["username"];
 
-	$guestbook = getPosts($userid);
+	$guestbook = getPostsProfile($userid);
 	$getpic    = getPicPath($userid); 
 	$following = followingUsers($userid);
 	$followers = getFollowers($userid);
@@ -54,7 +54,7 @@
 				<nav>
 					<ul id="menu">
 						<li><a href="logout.php">Log out</a></li>
-						<li><a href="editprofile.php">Edit profile</a></li>
+						<li><a href="editprofile.php">Edit <span>profile</span></a></li>
 					</ul>
 				</nav>
 				
@@ -62,19 +62,12 @@
 
 				<form class="search" action="searchresult.php?search=" method="GET">
 
-					<input type="text" name="search" id="searchinput" placeholder="Search for a # or a username">
+					<input type="text" name="search" id="searchinput" placeholder="Find a # or a username">
 					<button type="submit" id="searchbutton">search</button>
 
 				</form>
 
 			</header>
-
-			<form class="searchmobile" action="searchresult.php?search=" method="GET">
-
-					<input type="text" name="search" id="searchinput" placeholder="Search for a # or a username">
-					<button type="submit" id="searchbutton">search</button>
-
-			</form>
 
 			<section>
 
@@ -121,7 +114,7 @@
 						<div class="postform">
 							<form enctype="multipart/form-data" action="" method="POST">
 								<input type="hidden" name="action" value="post">
-								<textarea name="message" class="inputarea" maxlength="200"></textarea><br>
+								<textarea name="message" class="inputarea" maxlength="200" placeholder="What's cooking today?"></textarea><br>
 								<div id="count">200</div>
 								<input class="inputupload" type="file" name="upload">
 								<button type="submit" class="inputbutton">post something<span>!</span></button>
@@ -141,7 +134,7 @@
 										print  '<div class="wrapper">
 												<div id="toggle">	
 												<div class="postinfo"><span>' .find_at_tag_profile($username). '</span> ' .$value["dateofpost"]. '</div> 
-												<div class="usermessage">' .find_hashtags($post). '</div>';
+												<div class="usermessage">' .convertUrl(find_hashtags($post)). '</div>';
 												if($value["picpath"]){
 										print   '<div class="postpic"><img src="img/post/' .$value["picpath"]. '"></div>';
 												}
@@ -152,7 +145,7 @@
 												<input type="hidden" name="action" value="comment">
 												<input type="text" name="comment" class="commentinput">
 												<input type="hidden" name="id" value="' .$value["id"]. '">
-												<button type="submit" class="commentbutton">commen<span>t</span></button>
+												<button type="submit" class="commentbutton">Repl<span>y</span></button>
 												</form></div>';
 
 										$getcomments = getComments($value["id"]);
@@ -166,10 +159,10 @@
 												print 	'<div class="commentinfo">';
 												foreach ($userpath as $path) {
 														
-													print find_at_tag_viewuser($username, $path["userpath"]). " " .$value["dateofpost"];
+													print '<span>' .find_at_tag_viewuser($username, $path["userpath"]). "</span> " .$value["dateofpost"];
 												}
 												print 	'</div>
-														<div class="comment">' .find_hashtags($post). '</div>';
+														<div class="comment">' .convertUrl(find_hashtags($post)). '</div>';
 											}
 										}
 

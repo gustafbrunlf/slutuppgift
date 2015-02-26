@@ -1,16 +1,15 @@
 <?php 
 
-	session_start();
+	require_once("server/functions.php");
 
-	if (!isset($_SESSION["userdata"])) {
+	$session = checkSession();
 
+	if (!$session) {
 		$_SESSION["error"] = "You need to log in";
 		header("Location: login.php");
 		die;
 
 	}
-	
-	require_once("server/data.php");
 
 	$userid   = $_SESSION["userdata"]["id"];
 	$username = $_SESSION["userdata"]["username"];
@@ -32,8 +31,11 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>What's cooking?</title>
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/mobile.css">
   </head>
  	
 	<body>

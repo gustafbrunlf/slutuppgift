@@ -1,6 +1,6 @@
 <?php 
 
-	require_once("server/data.php");
+	require_once("server/functions.php");
 
 	$session = checkSession();
 
@@ -18,7 +18,7 @@
 
 	$data = viewProfile($userinfo);
 
-	$guestbookpost = getPosts($data[0]["id"]);
+	$guestbookpost = getPostsUser($data[0]["id"]);
 	$picpath       = getPicPath($data[0]["id"]);
 	$following     = followingUsers($data[0]["id"]);
 	$followers     = getFollowers($data[0]["id"]);
@@ -37,9 +37,12 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>What's cooking?</title>
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/main.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/mobile.css">
+    <script src="js/jquery.min.js"></script>
     <script src="js/script.js"></script>
   </head>
 
@@ -60,7 +63,7 @@
 
 				<form class="search" action="searchresult.php?search=" method="GET">
 
-					<input type="text" name="search" id="searchinput" placeholder="Search for a # or a username">
+					<input type="text" name="search" id="searchinput" placeholder="Find a # or a username">
 					<button type="submit" id="searchbutton">search</button>
 
 				</form>
@@ -75,7 +78,7 @@
 
 				<div class="profilebox">
 
-					<div class="profile">
+					<div class="profile view">
 
 					<?php foreach ($picpath as $value): ?>
 
@@ -138,7 +141,7 @@
 											}
 										
 										print 	'</div>
-											 	<div class="usermessage">' .find_hashtags($post). '</div>';
+											 	<div class="usermessage">' .convertUrl(find_hashtags($post)). '</div>';
 												if($value["picpath"]){
 										print   '<div class="postpic"><img src="img/post/' .$value["picpath"]. '"></div>';
 												}
@@ -148,7 +151,7 @@
 												<form action="server/savecommentview.php" method="POST">
 												<input type="text" name="comment" class="commentinput">
 												<input type="hidden" name="id" value="' .$value["id"]. '">
-												<button type="submit" class="commentbutton">comment</button>
+												<button type="submit" class="commentbutton">Repl<span>y</span></button>
 												</form></div>';
 												
 										$getcomments = getComments($value["id"]);
@@ -169,7 +172,7 @@
 											}
 												
 											print 	'</div>';
-											print 	'<div class="comment">' .find_hashtags($post). '</div>';
+											print 	'<div class="comment">' .convertUrl(find_hashtags($post)). '</div>';
 											}
 										}
 

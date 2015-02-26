@@ -1,6 +1,6 @@
 <?php 
 
-	require_once("server/data.php");
+	require_once("server/functions.php");
 
 	$session = checkSession();
 
@@ -15,8 +15,7 @@
 
 	$userid   = $_SESSION["userdata"]["id"];
 	$username = $_SESSION["userdata"]["username"];
-
-	$guestbook = getPosts($userid);
+	
 	$getpic    = getPicPath($userid);
 	$following = followingUsers($userid);
 	$followers = getFollowers($userid);
@@ -34,8 +33,11 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>What's cooking?</title>
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/mobile.css">
   </head>
  	
 	<body>
@@ -55,7 +57,7 @@
 
 				<form class="search" action="searchresult.php?search=" method="GET">
 
-					<input type="text" name="search" id="searchinput" placeholder="Search for a # or a username">
+					<input type="text" name="search" id="searchinput" placeholder="Find a # or a username">
 					<button type="submit" id="searchbutton">search</button>
 
 				</form>

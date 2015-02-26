@@ -2,7 +2,7 @@
 	
 	$error = "";
 
-	require_once("server/data.php");
+	require_once("server/functions.php");
 
 	$session = checkSession();
 
@@ -29,9 +29,10 @@
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>What's cooking?</title>
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/login.css">
-    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 
   </head>
 
@@ -41,7 +42,7 @@
 		
 			<div class="formwrapper">
 
-				<h1>Log in to <span>What's cooking?</span><br>	or:<br>
+				<h1>Log in to<br><span>What's cooking?</span><br>	or:<br>
 				<a href="register.php">Register here</a></h1>
 				
 				<form action="server/checklogin.php" method="POST">
