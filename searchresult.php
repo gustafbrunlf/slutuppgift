@@ -69,7 +69,6 @@
 				<div class="searchresult">
 					
 					<h1>Search result for: <?= $search; ?></h1>
-					<p>
 
 					<?php 
 
@@ -91,33 +90,17 @@
 							foreach ($hashtagresult as $value) :
 
 								$message = $value["message"];
-								$searchusername = $value["username"];
-								$usernameat = ltrim ($searchusername, '@');
-								$userpath = getUserpath($usernameat);
+								$searchusername = $value["username"]; ?>
 
-								if ($username == $usernameat) : ?>
-
-									<p> <?= find_at_tag_profile($searchusername); ?><br> <?= $message; ?><br>
+									<p><?= get_profile_link($searchusername); ?><br> <?= $message; ?><br>
 
 								<?php 
-
-								else :
-
-									foreach ($userpath as $path) : ?>
-														
-										<p><?= find_at_tag_viewuser($searchusername, $path["userpath"]); ?><br><?= $message; ?><br>
- 
-								<?php	endforeach;
-
-								endif;
 
 							endforeach;
 
 						endif; ?>
 
-						<?= $searcherror; ?>
-
-					</p>
+						<p><?= $searcherror; ?></p>
 
 				</div>	
 

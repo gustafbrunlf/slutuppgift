@@ -460,15 +460,15 @@
 	}
 
 	.error{
-		float: left;
-		width: 400px;
-		text-align: center;
+		width: 200px;
+		margin: 0px auto;
 		color: #ff0000;
 		font-size: 20px;
+		padding-top: 15px;
 	}
 
 	.editprofile{
-		height: 39	0px;
+		height: 405px;
 		width: 400px;
 		padding: 20px;
 		margin: 80px auto;
