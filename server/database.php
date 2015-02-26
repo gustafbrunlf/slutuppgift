@@ -1,9 +1,14 @@
 <?php 
 
+	// define("HOST", "localhost");
+	// define("USERNAME", "root");
+	// define("PASSWORD", "root");
+	// define("DATABASE", "slutuppgift");
+
 	define("HOST", "localhost");
 	define("USERNAME", "root");
-	define("PASSWORD", "root");
-	define("DATABASE", "slutuppgift");
+	define("PASSWORD", "password");
+	define("DATABASE", "gubr");
 
 	function DBConnect () {
 		$con = new PDO("mysql:host=".HOST.";dbname=".DATABASE, USERNAME, PASSWORD);
