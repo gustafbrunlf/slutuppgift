@@ -2,7 +2,8 @@
 
 	define("HOST", "localhost");
 	define("USERNAME", "root");
-	define("PASSWORD", "root");
+	#define('PASSWORD', 'root');
+	define("PASSWORD", "password");
 	define("DATABASE", "gubr");
 	#define("DATABASE", "slutuppgift");
 
