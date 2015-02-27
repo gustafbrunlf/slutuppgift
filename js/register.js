@@ -15,16 +15,25 @@ $(document).ready(function(){
 
 			if(email.indexOf('.') != -1 && email.indexOf('@') != -1){
 
-				if(pwd != pwd2){
+				if(name.length >= 6 || pwd.length >= 6){
 
-					$('#registererror').append("<p>Passwords doesn't match</p><br>");
-					$('#password, #password2').addClass('fielderror');
+					if(pwd != pwd2){
+
+						$('#registererror').append("<p>Passwords doesn't match</p><br>");
+						$('#password, #password2').addClass('fielderror');
+
+					}
+
+				} else {
+
+					$('#registererror').append("<p>6 characters minimum</p><br>");
+					$('#username, #password, #password2').addClass('fielderror');
 
 				}
 
 			} else {
 
-				$('#registererror').append("<p>Invalid e-mail</p><br>");
+				$('#registererror').append("<p>Invalid e-mail!</p><br>");
 				$('#email').addClass('fielderror');
 
 			}

@@ -72,119 +72,115 @@
 
 			<section>
 
-				<article>
+				<div class="center">
 
-					<div class="center">
+					<div class="profilebox view">
 
-				<div class="profilebox view">
+						<div class="profile">
 
-					<div class="profile">
+						<?php foreach ($picpath as $value): ?>
 
-					<?php foreach ($picpath as $value): ?>
+						<img class="profilepic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.png"; } ?>">
 
-					<img class="profilepic" src="img/profile/<?php if ($value["picpath"]) { print $value["picpath"]; } else { print "standard.png"; } ?>">
+						<?php endforeach; $userinfo = array_pop($data); ?>
 
-					<?php endforeach; $userinfo = array_pop($data); ?>
+						<h1 class="userinfo"><?= $userinfo["username"]; ?></h1> 
 
-					<h1 class="userinfo"><?= $userinfo["username"]; ?></h1> 
-
-					<div>
-						<h2>About: </h2>
-						<p><?php if(isset($usertext)){ foreach ($usertext as $value) { if($value["userinfo"]) { print $value["userinfo"]; } else { print "No info"; } } } ?></p>
-					</div>
-
-						<table class="userstatistics">
-							<tr>
-								<th>Messages:</th>
-								<th>Following:</th>
-								<th>Followers:</th>
-							</tr>
-							<tr>
-								<td><?= count($countpost); ?></td>
-								<td><a href="userfollowing.php?username=<?= $userinfo["userpath"]; ?>"><?= count($following); ?></a></td>
-								<td><a href="userfollowing.php?username=<?= $userinfo["userpath"]; ?>"><?= count($followers); ?></a></td>
-							</tr>
-						</table>
-						
-						<form method="POST" action="server/savefollow.php">
-							<input type="hidden" name="userid" value="<?= $userinfo["id"]; ?>">
-							<button class="followbutton"><?php if (checkFollower($_SESSION['userdata']['id'], $userinfo["id"])) { print 'Unfollo<span>w</span>'; } else { print 'Follo<span>w</span>'; } ?></button>
-						</form>
-
+						<div>
+							<h2>About: </h2>
+							<p><?php if(isset($usertext)){ foreach ($usertext as $value) { if($value["userinfo"]) { print $value["userinfo"]; } else { print "No info"; } } } ?></p>
 						</div>
 
-						<span class="error"><?= $error; ?></span>
-
-					</div>
-					
-					<div class="inputfield">
-						
-						<div class="result">
+							<table class="userstatistics">
+								<tr>
+									<th>Messages:</th>
+									<th>Following:</th>
+									<th>Followers:</th>
+								</tr>
+								<tr>
+									<td><?= count($countpost); ?></td>
+									<td><a href="userfollowing.php?username=<?= $userinfo["userpath"]; ?>"><?= count($following); ?></a></td>
+									<td><a href="userfollowing.php?username=<?= $userinfo["userpath"]; ?>"><?= count($followers); ?></a></td>
+								</tr>
+							</table>
 							
-							<?php
+							<form method="POST" action="server/savefollow.php">
+								<input type="hidden" name="userid" value="<?= $userinfo["id"]; ?>">
+								<button class="followbutton"><?php if (checkFollower($_SESSION['userdata']['id'], $userinfo["id"])) { print 'Unfollo<span>w</span>'; } else { print 'Follo<span>w</span>'; } ?></button>
+							</form>
 
-								if ($guestbookpost) {
-									
-									foreach ($guestbookpost as $value) {
-										$post = $value["message"];
-										$username = $value["username"];
+							</div>
 
-										print  '<div class="wrapper">
-												<div class="toggled">
-											 	<div class="postinfo"><span>' .get_profile_link($username). '</span> ' .$value["dateofpost"]. '</div>
-											 	<div class="usermessage">' .convertUrl(find_hashtags($post)). '</div>';
-												if($value["picpath"]){
-										print   '<div class="postpic"><img src="img/post/' .$value["picpath"]. '"></div>';
-												}
-										print	'</div> 
-												<div class="toggle">
-												<div class="commentfield">
-												<form action="server/savecomment.php" method="POST">
-												<input type="text" name="comment" class="commentinput" placeholder="' .$value["username"]. '">
-												<input type="hidden" name="id" value="' .$value["id"]. '">
-												<button type="submit" class="commentbutton">Repl<span>y</span></button>
-												</form></div>';
-												
-										$getcomments = getComments($value["id"]);
+							<span class="error"><?= $error; ?></span>
+
+						</div>
+						
+						<div class="inputfield">
+							
+							<div class="result">
+								
+								<?php
+
+									if ($guestbookpost) {
 										
-										if ($getcomments) {
+										foreach ($guestbookpost as $value) {
+											$post = $value["message"];
+											$username = $value["username"];
 
-											foreach ($getcomments as $value) {
-												
-												$post = $value["message"];
-												$username = $value["username"];
-												print 	'<div class="commentinfo"><span>' .get_profile_link($username). '</span> ' .$value["dateofpost"]. '</div>
-														<div class="comment">' .convertUrl(find_hashtags($post)). '</div>';
+											print  '<div class="wrapper">
+													<div class="toggled">
+												 	<div class="postinfo"><span>' .get_profile_link($username). '</span> ' .$value["dateofpost"]. '</div>
+												 	<div class="usermessage">' .convertUrl(find_hashtags($post)). '</div>';
+													if($value["picpath"]){
+											print   '<div class="postpic"><img src="img/post/' .$value["picpath"]. '"></div>';
+													}
+											print	'</div> 
+													<div class="toggle">
+													<div class="commentfield">
+													<form action="server/savecomment.php" method="POST">
+													<input type="text" name="comment" class="commentinput" placeholder="' .$value["username"]. '">
+													<input type="hidden" name="id" value="' .$value["id"]. '">
+													<button type="submit" class="commentbutton">Repl<span>y</span></button>
+													</form></div>';
+													
+											$getcomments = getComments($value["id"]);
+											
+											if ($getcomments) {
+
+												foreach ($getcomments as $value) {
+													
+													$post = $value["message"];
+													$username = $value["username"];
+													print 	'<div class="commentinfo"><span>' .get_profile_link($username). '</span> ' .$value["dateofpost"]. '</div>
+															<div class="comment">' .convertUrl(find_hashtags($post)). '</div>';
+												}
 											}
+
+												print "</div>";
+											print "</div>";
+
 										}
 
-											print "</div>";
-										print "</div>";
+									} else {
+
+										print '<h1 class="emptyresult"><span>' .$userinfo["username"]. '</span> hasn\'t written any posts yet!</h1>';
 
 									}
+								?>
 
-								} else {
-
-									print '<h1 class="emptyresult"><span>' .$userinfo["username"]. '</span> hasn\'t written any posts yet!</h1>';
-
-								}
-							?>
+							</div>
 
 						</div>
 
 					</div>
 
-				</div>
+					<div>
 
-				<div>
-
-					<span style="color: red;"><?= $error; ?></span>
-			
-				</div>
+						<span style="color: red;"><?= $error; ?></span>
+				
+					</div>
 
 				</div>
-
-				</article>
 
 			</section>
 

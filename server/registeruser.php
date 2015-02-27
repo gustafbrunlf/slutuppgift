@@ -22,7 +22,7 @@
 
 		 		createUser($username, $passwd, $email, $userpath);
 
-				$_SESSION["error"] = "Registration completed, please log in!";
+				$_SESSION["error"] = "Registration completed, please log in";
 
 				header("Location: index.php");
 				die;

@@ -13,12 +13,7 @@
 
 	}
 
-	if (isset($_SESSION["error"])) {
-
-		$error = $_SESSION["error"];
-		unset($_SESSION["error"]);
-
-	}
+	$error = "";
 
 	require_once("server/savepost.php");
 
@@ -104,9 +99,9 @@
 								</tr>
 							</table>
 
-						</div>
+							<span class="error"><?= $error; ?></span>
 
-						<span class="error"><?= $error; ?></span>
+						</div>
 
 					</div>
 

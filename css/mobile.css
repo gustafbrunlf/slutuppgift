@@ -4,8 +4,7 @@
 @media only screen and (max-width: 929px) {
 	
 	html, body {
-	    max-width: 100%;
-	    overflow-x: hidden;
+	    
 	}
 	
 	#container{
@@ -18,7 +17,7 @@
 		-moz-background-size: cover;
 		-o-background-size: cover;
 		background-size: cover;
-		overflow: scroll;
+		overflow: auto;
 	}
 
 	header{	
@@ -26,10 +25,7 @@
 		height: 140px;
 		border-bottom: 5px solid #000;
 		background: #ECECEC;
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 100;
+		position: relative;
 	}
 
 	nav {
@@ -136,11 +132,11 @@
 	}
 
 	section{
-		padding-top: 140px;
 		width: 100%;
+		overflow-x: hidden;
 	}
 
-	.center {
+	.center{
 		width:100%;
 		max-width:924px;
 		margin:0 auto;
@@ -159,6 +155,10 @@
 		background: rgba(236,236,236, 0.9);
 	}
 
+	.profilebox.view{
+		height: 320px;
+	}
+
 	.followbox{
 		margin: 30px auto;
 		width: 300px;
@@ -173,6 +173,16 @@
 		text-align: center;
 	}
 
+	.profilefollow{
+		height: 100%;
+		width: 300px;
+		padding: 20px 0px 30px 0px;
+		margin-bottom: 40px;
+		background: rgba(236,236,236, 0.9);
+		border-radius: 10px;
+		border: 1px solid #ccc;
+	}
+
 	.profilepic{
 		margin-top: 15px;
 		height: 80px;
@@ -185,20 +195,6 @@
 		width: 100%;
 		border: 3px solid #000;
 		border-radius: 10px;
-	}
-
-	.profilefollow{
-		height: 100%;
-		width: 300px;
-		padding: 20px 0px 30px 0px;
-		margin-left: 10px;
-		background: rgba(236,236,236, 0.9);
-		border-radius: 10px;
-		border: 1px solid #ccc;
-	}
-
-	.profilebox.view{
-		height: 320px;
 	}
 
 	.userinfo{

@@ -18,9 +18,11 @@
 
 				$picpath = getPicPath($userid);
 
-				foreach ($picpath as $value) {
-					$img = "img/profile/" . $value["picpath"];
+				if ($picpath[0]["picpath"]) { 
+
+					$img = "img/profile/" . $picpath[0]["picpath"];
 					unlink($img);
+
 				}
 
 				$file  = $_FILES["upload"]["tmp_name"];
@@ -39,8 +41,18 @@
 						$name = substr(md5(rand()), 0, 7);
 
 						$picname = $name. "." .$end;
+
+						if(file_exists($file)) {
+						   echo "file uploaded to temp dir<br>";
+						} else {
+						   echo "file upload failed<br>";
+						}
 						
-						move_uploaded_file($file, $uploads_dir.$picname);
+						if (move_uploaded_file($file, $uploads_dir.$picname)) {
+						   echo "upload complete<br>";
+						} else {
+						   echo "move_uploaded_file failed<br>";
+						}
 
 						createPicPath($picname, $userid);
 

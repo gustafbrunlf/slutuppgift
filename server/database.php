@@ -2,10 +2,10 @@
 
 	define("HOST", "localhost");
 	define("USERNAME", "root");
-	#define('PASSWORD', 'root');
 	define("PASSWORD", "password");
 	define("DATABASE", "gubr");
-	#define("DATABASE", "slutuppgift");
+	// define('PASSWORD', 'root');
+	// define("DATABASE", "slutuppgift");
 
 	function DBConnect () {
 		$con = new PDO("mysql:host=".HOST.";dbname=".DATABASE, USERNAME, PASSWORD);
