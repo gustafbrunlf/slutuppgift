@@ -36,7 +36,7 @@
 
 						$end = explode(".", $_FILES["upload"]["name"])[1];
 
-						$uploads_dir = "../img/profile/";
+						$uploads_dir = "img/profile/";
 
 						$name = substr(md5(rand()), 0, 7);
 
