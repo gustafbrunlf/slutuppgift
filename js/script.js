@@ -1,7 +1,5 @@
 $(document).ready(function(){
 
-    //$(".toggle").hide();
-
     $(".toggled").click(function(){
 
         $(this).next(".toggle").slideToggle("slow");
@@ -22,4 +20,3 @@ $(document).ready(function(){
 	});
 			  
 });
-

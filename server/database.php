@@ -4,8 +4,6 @@
 	define("USERNAME", "root");
 	define("PASSWORD", "password");
 	define("DATABASE", "gubr");
-	// define('PASSWORD', 'root');
-	// define("DATABASE", "slutuppgift");
 
 	function DBConnect () {
 		$con = new PDO("mysql:host=".HOST.";dbname=".DATABASE, USERNAME, PASSWORD);
