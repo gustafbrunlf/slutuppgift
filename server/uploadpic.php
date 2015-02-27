@@ -41,22 +41,8 @@
 						$name = substr(md5(rand()), 0, 7);
 
 						$picname = $name. "." .$end;
-
-						echo __FILE__."<br>";
-						echo dirname(__FILE__)."<br>";
-						echo __DIR__."<br>";
-
-						if(file_exists($file)) {
-						   echo "file uploaded to temp dir<br>";
-						} else {
-						   echo "file upload failed<br>";
-						}
 						
-						if (move_uploaded_file($file, $uploads_dir.$picname)) {
-						   echo "upload complete<br>";
-						} else {
-						   echo "move_uploaded_file failed<br>";
-						}
+						move_uploaded_file($file, $uploads_dir.$picname);
 
 						createPicPath($picname, $userid);
 
