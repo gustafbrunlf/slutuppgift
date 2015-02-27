@@ -42,6 +42,10 @@
 
 						$picname = $name. "." .$end;
 
+						echo __FILE__."<br>";
+						echo dirname(__FILE__)."<br>";
+						echo __DIR__."<br>";
+
 						if(file_exists($file)) {
 						   echo "file uploaded to temp dir<br>";
 						} else {
